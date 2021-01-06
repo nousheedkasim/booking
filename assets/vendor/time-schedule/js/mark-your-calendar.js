@@ -104,7 +104,7 @@
                 $.each(settings.availability[i], function() {
 					console.log(i);
                     tmpAvailTimes += `
-                        <a href="javascript:;" class="myc-available-time" data-time="` + this + `" data-date="` + formatDate(settings.startDate.addDays(i)) + `">
+                        <a  href="javascript:;" class="myc-available-time" data-time="` + this + `" data-date="` + formatDate(settings.startDate.addDays(i)) + `">
                             ` + this + `
                         </a>
                     `;

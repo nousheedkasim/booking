@@ -98,23 +98,25 @@
 				<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
 					<section class="panel mb-xs">
 							<div class="panel-body">
-								<form>
-									<select id="patient" name="patient" class="form-control">
+								<form id="booking_form" method="post">
+									<select id="patient" name="patient_name" class="form-control">
 										<option>Search Patient</option>
 									</select>
+									<input class="form-control mt-xs hide" type="text" name="user_id" id="user_id" value="9">
 									<input class="form-control mt-xs hide" type="text" name="patient_id" id="patient_id">
-									<input class="form-control mt-xs" type="text" name="mobile" id="mobile" placeholder="Mobile" maxlength="10">
-									<input class="form-control mt-xs" type="text" data-plugin-datepicker="" data-plugin-masked-input="" data-input-mask="99/99/9999" placeholder="__/__/____" name="dob"  id="dob" placeholder="DOB">
+									<input class="form-control mt-xs hide" type="hidden" name="status" id="status">
+									<input class="form-control mt-xs" type="text" name="patient_mobile" id="mobile" placeholder="Mobile" maxlength="10">
+									<input class="form-control mt-xs" type="text" data-plugin-datepicker="" data-plugin-masked-input="" data-input-mask="99/99/9999" placeholder="__/__/____" name="patient_dob"  id="dob" placeholder="DOB">
 									<div class="mt-xs">
-										<select id="gender" name="gender" class="form-control mt-xs" style="margin-top:5px;" required="">
+										<select id="gender" name="patient_gender" class="form-control mt-xs" style="margin-top:5px;" required="">
 											<option value="">Gender</option>
 											<option value="1">Male</option>
 											<option value="2">Female</option>
 										</select>
 									</div>
-									<!--<textarea class="form-control" placeholder="Address" id="address"></textarea>-->
+									<textarea class="form-control hide " placeholder="Address" id="address">aaaa</textarea>
 									<div class="mt-xs">
-										<select id="diagnose" name="diagnose" data-plugin-select class="form-control mt-xs" required="">
+										<select id="diagnose" name="diagnosis_id" data-plugin-select class="form-control mt-xs" required="">
 											<option value="">Diagnose</option>
 											<?php foreach($diagnoses as $row){?>
 											<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
@@ -123,7 +125,7 @@
 										<input type="hidden" id="duration" name="diagnosis_duration">
 									</div>
 									<div class="mt-xs">
-										<select id="clinic" name="clinic" data-plugin-select class="form-control mt-xs" required="">
+										<select id="clinic" name="clinic_id" data-plugin-select class="form-control mt-xs" required="">
 											<option value="">Choose a Clinic</option>
 											<?php foreach($clinics as $row){ ?>
 											<option value="<?php echo $row->id; ?>"> <?php echo $row->name;?></option>
@@ -132,19 +134,19 @@
 										</select>
 									</div>
 									<div class="mt-xs">
-										<select id="doctor" name="doctor" class="form-control mt-xs" required="">
+										<select id="doctor" name="doctor_id" class="form-control mt-xs" required="">
 											<option value="">Choose a Doctor</option>
 										</select>
 									</div>
 									
-									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control mt-xs" id="booking_date" >
+									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control mt-xs" id="booking_date" disabled>
 
 									<div class="container1 mt-xs">
 										<div id="picker"></div>
 										
 									 </div>
-									 <input type="hidden" name="selected-dates" id="selected-dates">
-									<button type="button" id="booking_btn" class="mb-xs mt-xs mr-xs btn btn-sm  btn-block btn-primary" disabled>Book</button>
+									 <input type="hidden" name="actual_time" id="selected-dates">
+									<button  id="booking_btn" class="mb-xs mt-xs mr-xs btn btn-sm  btn-block btn-primary" disabled>Book</button>
 
 									
 								</form>

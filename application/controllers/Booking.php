@@ -24,6 +24,12 @@ class Booking extends MY_Controller {
 		echo json_encode($data);
 	}
 	
+	public function patient_booking(){
+		$this->load->model('Booking_model');
+		$data=$this->Booking_model->patient_booking();
+		print_r($data);
+	}
+	
 	
 	
 }

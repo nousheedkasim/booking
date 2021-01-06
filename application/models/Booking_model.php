@@ -120,6 +120,50 @@
             //return   $result;*/
 		}
 		
+		
+		public function patient_booking(){
+		    
+			
+		    $patient_id=$this->input->post('patient_id');
+		    if($this->input->post('status')==1)
+		       {
+        		    $patient_deatails['patient_name']	=  $this->input->post('patient_name');
+        		    $patient_deatails['patient_address']=  $this->input->post('patient_address');
+        		    $patient_deatails['patient_age']	=  '';
+        		    $patient_deatails['patient_gender']	=  $this->input->post('patient_gender');
+        		    $patient_deatails['patient_mobile']	=  $this->input->post('patient_mobile');
+        		    $patient_deatails['patient_dob']	=  date("Y-m-d", strtotime($this->input->post('patient_dob')));
+        		    $patient_deatails['patient_refer_user']	=  $this->input->post('user_id');
+        		        
+        		   if($this->db->insert('tbl_patient', $patient_deatails)){
+        		     $patient_id	= $this->db->insert_id();
+        		   }
+		       }
+		       
+		        
+        		$clinic_id	=  $this->input->post('clinic_id');
+        		$doctor_id	=  $this->input->post('doctor_id');
+        		$booking_date	=  date("Y-m-d", strtotime($this->input->post('booking_date')));
+        		$actual_time	=  $this->input->post('actual_time');
+        	    $diagnosis	=  $this->input->post('diagnosis_id');
+        		
+        		
+        		$booking_string="INSERT INTO  tbl_booking (booking_tocken,booking_patient,booking_diagnosis, booking_clinic, booking_doctor,booking_date,booking_time)
+                                SELECT CONCAT('TK',case when max(booking_id) is NOT null then max(booking_id)+1 else 1 end),$patient_id,$diagnosis,$clinic_id,$doctor_id,'$booking_date','$actual_time'
+                                FROM  tbl_booking";
+		
+			    if($this->db->query($booking_string)){
+			        
+			        $return['tocken']='TK'.$this->db->insert_id();
+			        $return['status']='1';
+			       
+			        
+			    }
+			    else{
+			        $return['status']='0';
+			    }
+		    return  $return;
+		}
 
 		
 

@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 			if($response['status']=200){
 				
 				$this->session->set_userdata('user_id',$response['user_id']);
-				redirect('Dashboard');
+				redirect('dashboard');
 			}
 			else{
 				

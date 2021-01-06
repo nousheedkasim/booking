@@ -21,11 +21,10 @@ class Patient extends CI_Controller {
 		$data = $this->Patient_model->patient_details();
 		
 		if($data){
-		    $data1[]=$data;
-		    $json[]=array('api_status'=>'1','patient_data'=>$data1);
+		    $json=array('status'=>'1','patient_data'=>$data);
 		}
 		else{
-		    $json[]=array('api_status'=>'0');
+		    $json=array('api_status'=>'0');
 		}
 		echo json_encode($json);
 		

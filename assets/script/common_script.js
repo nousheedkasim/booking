@@ -236,12 +236,21 @@ if ($("#reception").length) {
 						url: 'patient/patient_details?patient_id='+patient,
 						success:function(response){
 							var json = $.parseJSON(response);
-							//console.log(json);
-							$("#mobile").val(json.customer_phone);
-							$("#customer_hidden").val(json.customer_id);
+							console.log(json);
+							
+							$("#mobile").val(json.patient_data.patient_mobile);
+							$("#patient_id").val(json.patient_data.patient_id);
+							$("#dob").val(json.patient_data.patient_dob);
+							$("#gender").val(json.patient_data.patient_gender);
+							
+							$("#status").val(0);
 							
 						}
 					});
+					
+				}
+				else{
+					$("#status").val(1);
 				}
 				$("#mobile").focus();
 				
@@ -291,13 +300,15 @@ if ($("#reception").length) {
 				}
 					
 				}).on('select2:select',function(){
+					
+					$("#booking_date").removeAttr("disabled");
 					$("#booking_date").focus();
 				}).focus();			
 				
 			});
 			
 		
-		$("#booking_date").change(function(){
+		$("#booking_date").on('changeDate', function (ev) {
 			var diagnose=$("#diagnose").val();
 			var clinic=$("#clinic").val(); 
 			var doctor=$("#doctor").val();
@@ -307,11 +318,20 @@ if ($("#reception").length) {
 				alert("Make valid Selection");
 			}
 			else{
-				
+				//console.log(diagnose);
+				//console.log(clinic);
+				//console.log(doctor);
+				//console.log(booking_date);
 				slot(diagnose,clinic,doctor,booking_date);
+				$("#booking_btn").removeAttr("disabled");
+				$("#booking_btn").focus();
 			}
 			
+			
 		});
+		
+		
+	
  
  
  
@@ -386,42 +406,26 @@ if ($("#reception").length) {
 	
 	 
 	 $("#booking_btn").click(function(){
-			alert(11111);
+			if(!$(".myc-available-time").hasClass("selected")){
+				alert("INvalid slot");
+			}
+			else{
+				
+				 $.ajax({
+					type: "POST",
+					url: "booking/patient_booking",
+					data: $("#booking_form").serialize(),
+					success: function(response){
+						
+						
+					}				
+					
+				});
+				
+			}
 	});
    
  
-	 /*(function($) {
-		 var tttt=2222;
-          $('#picker').markyourcalendar({
-            availability: [
-              ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','1:00', '2:00', '3:00', '4:00', '5:00']
-            ],
-            isMultiple: false,
-            onClick: function(ev, data) {
-              // data is a list of datetimes
-              console.log(data);
-              var html = '';
-              $.each(data, function() {
-                var d = this.split(' ')[0];
-                var t = this.split(' ')[1];
-                html += '<p>' + d + ' ' + t + '</p>';
-              });
-              $('#selected-dates').html(html);
-            },
-            onClickNavigator: function(ev, instance) {
-			alert(tttt);
-              var arr = [
-                [
-                  ['4:00', '5:00', '6:00', '7:00', '8:00']
-                ]
-              ]
-              var rn = Math.floor(Math.random() * 10) % 7;
-			  console.log(rn);
-			  instance.setAvailability(arr[0]);
-              //instance.setAvailability(arr[rn]);
-            }
-          });
-        })(jQuery);*/
  
  
  
