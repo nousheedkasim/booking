@@ -1,0 +1,59 @@
+/* Add here all your CSS customizations */
+
+.no-click{
+	pointer-events: none;
+}
+.no-sort{
+	background:none !important;
+	pointer-events: none;
+}
+.edit-icon{
+	margin-left: 5px;
+    margin-right: 5px;
+}
+.error_input{
+	border-color: #a94442;
+}
+
+.label-left{
+	padding-left:0px !important;
+}
+ select[name="datatable_length"]{
+	border: 1px solid #E5E7E9;
+    border-radius: 6px;
+    height: 34px;
+    padding: 7px;
+    outline: none;
+ }
+.total_input{
+	border-radius: 3px !important;
+	text-align: right;
+	padding: 1px 3px 1px 3px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.pl-np{
+	padding-left:0px !important;
+}
+.pr-np{
+	padding-right:0px !important;
+}
+.pf-np{
+	padding:0 0 0 0 !important;
+}
+.input-label{
+	background-color: #fff;
+    border: 1px solid #c0bebe;
+    border-radius: 3px;
+    padding: 0px 3px 0px 3px;
+	width:100%;
+	line-height:1.7;
+	font-size:15px;
+}
+.select2{
+	width:100%!important;
+}
+.right{
+	text-align: right !important;
+}
+/*End Custom CSS*/
