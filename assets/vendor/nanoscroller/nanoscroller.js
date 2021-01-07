@@ -924,7 +924,6 @@
       return scrollbar.reset();
     });
   };
-  $.fn.nanoScroller.Constructor = NanoScroll;
+  //$.fn.nanoScroller.Constructor = NanoScroll;
 })(jQuery, window, document);
 
-//# sourceMappingURL=jquery.nanoscroller.js.map
