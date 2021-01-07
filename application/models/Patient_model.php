@@ -73,9 +73,22 @@
             $query  = $this->db->query($string);
             $result = $query->row();
             return   $result;
-		
-			
 		}
+		public function patient_booking_details(){
+			
+			$patient_id=$this->input->get_post('patient_id');
+			
+			 $string 		= "SELECT tbl_patient.*,booking_doctor as doctor_id,booking_clinic as clinic_id,booking_diagnosis as diagnosis_id,diagnose_slot_duration as duration
+		                        FROM tbl_booking 
+		                        INNER JOIN tbl_patient ON booking_patient=patient_id
+								INNER JOIN tbl_diagnose ON booking_diagnosis=diagnose_id
+		                        WHERE patient_id=$patient_id ORDER BY booking_id DESC limit 1";
+			
+            $query  = $this->db->query($string);
+            $result = $query->row();
+            return   $result;
+		}
+		
 		
 		
 

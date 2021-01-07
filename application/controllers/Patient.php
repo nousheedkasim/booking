@@ -16,9 +16,9 @@ class Patient extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	public function patient_details(){
+	public function patient_booking_details(){
 		
-		$data = $this->Patient_model->patient_details();
+		$data = $this->Patient_model->patient_booking_details();
 		
 		if($data){
 		    $json=array('status'=>'1','patient_data'=>$data);
