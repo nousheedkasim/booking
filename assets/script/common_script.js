@@ -440,6 +440,18 @@ if ($("#reception").length) {
 			}
 	});
    
+   
+   
+   $('#booking_table td').hover(function() {
+	   var content=$(this).text();
+	   console.log(content);
+	  var actions='<button type="button" class="mr-xs btn btn-xs pull-left"><i class="fa fa-pencil"></i></button>'+
+					'<button type="button" class="btn btn-xs pull-left"><i class="fa fa-trash-o"></i></button>';
+														
+    $(this).addClass('hover').append(actions); 
+}, function() {
+    $(this).removeClass('hover').find("button").remove();
+});
  
  
  

@@ -11,6 +11,14 @@
     float: right;
   }
 }
+.booked{
+	
+	background-color: #47a447;
+}
+.hover{
+	background-color: #cccccc;
+	
+}
 </style>
 	
 	<link rel="stylesheet" type="text/css" href="assets/vendor/time-schedule/css/mark-your-calendar.css">
@@ -167,21 +175,21 @@
 						
 						<div class="panel-body">
 							<div class="table-responsive">
-								<table class="table table-bordered table-striped table-condensed mb-none">
+								<table class="table table-bordered table-striped table-condensed mb-none" id="booking_table">
 									<thead>
 										<tr>
 											<th>Slot</th>
 											
-											<th class="text-right">Dr A</th>
-											<th class="text-right">Dr B</th>
-											<th class="text-right">Dr C</th>
+											<th class="text-right" width="30%">Dr A</th>
+											<th class="text-right" width="30%">Dr B</th>
+											<th class="text-right" width="30%">Dr C</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>S1</td>
 											
-											<td class="text-right" rowspan="2" style="background-color: #47a447; color:#f6f8f9">Tk-1:Rahul</td>
+											<td class="text-right booked" rowspan="2" >Tk-1:Rahul</td>
 											<td class="text-right">-0.01</td>
 											<td class="text-right">-0.36%</td>
 											
@@ -191,7 +199,10 @@
 											
 											
 											<td class="text-right">-0.01</td>
-											<td class="text-right">-0.36%</td>
+											
+										<td class="text-right actions-hover">
+															ttt
+											</td>
 											
 										</tr>
 									</tbody>
