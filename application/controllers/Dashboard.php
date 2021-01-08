@@ -22,6 +22,7 @@ class Dashboard extends MY_Controller {
 		$data['clinics']			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
 		$data['diagnoses']			= $this->Common_model->get_dropdown_value('tbl_diagnose',array('diagnose_id'=>'id','diagnose_name'=>'value'),array('diagnose_status'=>1));
 		$data['bookings']			= $this->Booking_model->bookings($data['user_id'],$data['user_type']);
+		
 		$this->page('reception',$data);
 	}
 	

@@ -423,6 +423,7 @@
 			$date			="2020-12-25";
 			$min_duration	= SLOT_MINIMUM_DURATION;
 			
+			$table			= array();
 			$doctor_string	="SELECT doctor_id,doctor_name,
 									CEIL(((TIME_TO_SEC(schedule_to) - TIME_TO_SEC(schedule_from))/60)/$min_duration) AS total_slot,
 									TIME_TO_SEC(schedule_from)/60 as slot_start
@@ -439,62 +440,65 @@
 			$doctor_query  	= $this->db->query($doctor_string);
             $doctor_result	= $doctor_query->result();
 			
-			$total_slot		= $doctor_result[0]->total_slot;
-			$slot_start		= $doctor_result[0]->slot_start;
+			if(count($doctor_result)>0){
 			
-			
-			$th[]		= array('id'=>0,'name'=>"Slot");
-			$doctor_array[]=array('id'=>0,'name'=>"Slot");
-			foreach($doctor_result as $doctor){
+				$total_slot		= $doctor_result[0]->total_slot;
+				$slot_start		= $doctor_result[0]->slot_start;
 				
-				$doctor_id		= $doctor->doctor_id;
-				$booking_string = " SELECT booking_id,patient_id,patient_name,patient_mobile,doctor_id,booking_time,
-										diagnose_name,diagnose_slot_duration,TIME_TO_SEC(booking_time)/60 as slot_from,
-										(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status
-									FROM tbl_booking 
-									INNER JOIN tbl_patient ON booking_patient=patient_id
-									INNER JOIN tbl_doctor ON booking_doctor=doctor_id
-									INNER JOIN tbl_clinic ON booking_clinic=clinic_id 
-									INNER JOIN tbl_status ON booking_status=status_id
-									INNER JOIN tbl_diagnose ON booking_diagnosis=diagnose_id
-									WHERE clinic_user=$user_id AND booking_date='$date' AND booking_doctor=$doctor_id";
-				$booking_query  = $this->db->query($booking_string);
-				$booking_result =  $booking_query->result();
 				
-				$doctor_array[$doctor->doctor_id]=$booking_result;
-				$th[]=array('id'=>$doctor->doctor_id,'name'=>$doctor->doctor_name);
-			}
-			
-			$slot_time=$slot_start;
-			for($i=1;$i<=$total_slot;$i++){
-				
-				$td=[];
-				foreach($doctor_array as $key=>$row){
-					if($key==0){
-						$td[]=[$slot_time,'ST-'.$i];
-					}
-					else{
-						$det=[];
-						foreach($row as $item){
-							
-							if($item->slot_from==$slot_time){
-								$dett=$item;
-							}
-							else{
-								$dett=array();
-							}
-							$det=$dett;
-						}
-						$td[]=$det;
-							//
-						
-					}
+				$th[]		= array('id'=>0,'name'=>"Slot");
+				$doctor_array[]=array('id'=>0,'name'=>"Slot");
+				foreach($doctor_result as $doctor){
+					
+					$doctor_id		= $doctor->doctor_id;
+					$booking_string = " SELECT booking_id,patient_id,patient_name,patient_mobile,doctor_id,booking_time,
+											diagnose_name,diagnose_slot_duration,TIME_TO_SEC(booking_time)/60 as slot_from,
+											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status
+										FROM tbl_booking 
+										INNER JOIN tbl_patient ON booking_patient=patient_id
+										INNER JOIN tbl_doctor ON booking_doctor=doctor_id
+										INNER JOIN tbl_clinic ON booking_clinic=clinic_id 
+										INNER JOIN tbl_status ON booking_status=status_id
+										INNER JOIN tbl_diagnose ON booking_diagnosis=diagnose_id
+										WHERE clinic_user=$user_id AND booking_date='$date' AND booking_doctor=$doctor_id";
+					$booking_query  = $this->db->query($booking_string);
+					$booking_result =  $booking_query->result();
+					
+					$doctor_array[$doctor->doctor_id]=$booking_result;
+					$th[]=array('id'=>$doctor->doctor_id,'name'=>$doctor->doctor_name);
 				}
-				$tr[]=$td;
-				$slot_time=$slot_time+$min_duration;
+				
+				$slot_time=$slot_start;
+				for($i=1;$i<=$total_slot;$i++){
+					
+					$td=[];
+					foreach($doctor_array as $key=>$row){
+						if($key==0){
+							$td[]=[$slot_time,'ST-'.$i];
+						}
+						else{
+							$det=[];
+							foreach($row as $item){
+								
+								if($item->slot_from==$slot_time){
+									$dett=$item;
+								}
+								else{
+									$dett=array();
+								}
+								$det=$dett;
+							}
+							$td[]=$det;
+								//
+							
+						}
+					}
+					$tr[]=$td;
+					$slot_time=$slot_time+$min_duration;
+				}
+				$table=['th'=>$th,'tr'=>$tr];
 			}
-			$table=['th'=>$th,'tr'=>$tr];
-			print_r($table);
+			return $table;
 		}
 
 		

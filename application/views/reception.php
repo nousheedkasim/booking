@@ -179,15 +179,44 @@
 								<table class="table table-bordered table-striped table-condensed mb-none" id="booking_table">
 									<thead>
 										<tr>
-											<th>Slot</th>
+										<?php 
+										foreach($bookings['th'] as $key=>$th){ 
+											$width= 95/count($bookings['th']);
+											if($key==0){
+												$width=5;
+											}
+										?>
+											<th class="text-right" width="<?php echo $width.'%';?>"><?php echo $th['name']; ?></th>
 											
-											<th class="text-right" width="30%">Dr A</th>
-											<th class="text-right" width="30%">Dr B</th>
-											<th class="text-right" width="30%">Dr C</th>
+										<?php
+										} ?>
+											
 										</tr>
 									</thead>
 									<tbody>
+										<?php  
+										foreach($bookings['tr'] as $tr){ 
+										?>
 										<tr>
+										
+											<?php 
+											 foreach($tr as $key=> $td){ ?>
+											
+												<td class="text-right"> <?php  if(!empty($td)) { 
+													if($key==0){
+														echo $td[0].'-'.$td[1]; 
+													}
+													else{
+													}
+												} ?></td>
+												
+											<?php	
+											 }
+											?>
+										</tr>
+										<?php
+										} ?>
+										<!--<tr>
 											<td>S1</td>
 											
 											<td class="text-right booked" rowspan="2" >Tk-1:Rahul</td>
@@ -205,7 +234,7 @@
 															ttt
 											</td>
 											
-										</tr>
+										</tr>-->
 									</tbody>
 								</table>
 							</div>	
