@@ -19,6 +19,7 @@
 	background-color: #cccccc;
 	
 }
+#booking_table > tbody > tr > td{ line-height: 1.7;}
 </style>
 	
 	<link rel="stylesheet" type="text/css" href="assets/vendor/time-schedule/css/mark-your-calendar.css">
@@ -136,7 +137,7 @@
 										<select id="clinic" name="clinic_id" data-plugin-select class="form-control mt-xs" required="">
 											<option value="">Choose a Clinic</option>
 											<?php foreach($clinics as $row){ ?>
-											<option value="<?php echo $row->id; ?>"> <?php echo $row->name;?></option>
+											<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
 											<?php
 											} ?>
 										</select>
@@ -147,7 +148,7 @@
 										</select>
 									</div>
 									
-									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control mt-xs" id="booking_date" disabled>
+									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control mt-xs hide" id="booking_date" disabled>
 
 									<div class="container1 mt-xs">
 										<div id="picker"></div>

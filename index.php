@@ -56,6 +56,7 @@
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 	
  // User  Defined Values
+	date_default_timezone_set('Asia/Kolkata');
 	define('MULTI_BRANCH',true); //Project used as multi branch concept
 	define('PR_TAX_INCLUDE',true); //Purchase Tax include with total amount
 	define('PR_TOTAL_ROUNDING',true); //Purchase Total Rounding with given Round Amound
@@ -66,6 +67,7 @@
 	define('SR_TAX_INCLUDE',true); //Service Tax include with total amount
 	define('SR_TOTAL_ROUNDING',true); //Service Total Rounding with given Round Amound
 	define('SR_INVOICE_START',1); //Service Total Rounding with given Round Amound
+	define('SLOT_MINIMUM_DURATION',5.00); //Service Total Rounding with given Round Amound
  //End User  Defined Values
  
 /*

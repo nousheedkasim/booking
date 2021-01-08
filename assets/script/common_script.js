@@ -246,16 +246,18 @@ if ($("#reception").length) {
 							//$("#doctor").select2("val", json.patient_data.doctor_id);
 							$("#duration").val(json.patient_data.duration);
 							var data = {
-							id: 1,
-							text: 'Barn owl'
-						};
+								id: 1,
+								text: 'Barn owl'
+							};
 
-						var newOption = new Option(data.text, data.id, false, false);
-						$('#doctor').empty();
-						$('#doctor').append(newOption).trigger('change');
-							$("#diagnose").select2("val", json.patient_data.diagnosis_id);
+							var newOption = new Option(data.text, data.id, false, false);
+							$('#doctor').empty();
+							$('#doctor').append(newOption).trigger('change');
+								$("#diagnose").select2("val", json.patient_data.diagnosis_id);
 							$("#status").val(0);
 							$("#diagnose").focus();
+							$("#booking_date").removeAttr("disabled").removeClass('hide');
+							$("#booking_date").focus();
 							
 							
 							
@@ -316,7 +318,7 @@ if ($("#reception").length) {
 					
 				}).on('select2:select',function(){
 					
-					$("#booking_date").removeAttr("disabled");
+					$("#booking_date").removeAttr("disabled").removeClass('hide');
 					$("#booking_date").focus();
 				}).focus();			
 				
@@ -444,15 +446,18 @@ if ($("#reception").length) {
    
    $('#booking_table td').hover(function() {
 	   var content=$(this).text();
-	   console.log(content);
-	  var actions='<button type="button" class="mr-xs btn btn-xs pull-left"><i class="fa fa-pencil"></i></button>'+
+	   //console.log(content);
+	  var actions='<button type="button" class="mr-xs btn btn-xs pull-left" onclick="slot_action()"><i class="fa fa-pencil"></i></button>'+
 					'<button type="button" class="btn btn-xs pull-left"><i class="fa fa-trash-o"></i></button>';
 														
     $(this).addClass('hover').append(actions); 
-}, function() {
-    $(this).removeClass('hover').find("button").remove();
-});
+	}, function() {
+		$(this).removeClass('hover').find("button").remove();
+	});
  
+	 function slot_action(){
+		 console.log(1111);
+	 };
  
  
  

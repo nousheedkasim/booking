@@ -6,7 +6,7 @@ class Dashboard extends MY_Controller {
 	public function __construct() {
 		
         parent::__construct();
-				$this->load->model('Dashboard_model');
+				
 
 		
     }
@@ -14,9 +14,14 @@ class Dashboard extends MY_Controller {
 	public function index()
 	{
 		//$this->load->view('test');
+		$this->load->model('Booking_model');
+		
 		$data						= array();
-		$data['clinics']			= $this->Dashboard_model->get_clinic();
+		$data['user_id']			= $this->user_data['user_id'];
+		$data['user_type']			= $this->user_data['user_type'];
+		$data['clinics']			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
 		$data['diagnoses']			= $this->Common_model->get_dropdown_value('tbl_diagnose',array('diagnose_id'=>'id','diagnose_name'=>'value'),array('diagnose_status'=>1));
+		$data['bookings']			= $this->Booking_model->bookings($data['user_id'],$data['user_type']);
 		$this->page('reception',$data);
 	}
 	
