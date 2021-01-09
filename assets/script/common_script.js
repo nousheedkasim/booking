@@ -445,12 +445,15 @@ if ($("#reception").length) {
    
    
    $('#booking_table td').hover(function() {
-	   var content=$(this).text();
-	   //console.log(content);
-	  var actions='<button type="button" class="mr-xs btn btn-xs pull-left" onclick="slot_action()"><i class="fa fa-pencil"></i></button>'+
-					'<button type="button" class="btn btn-xs pull-left"><i class="fa fa-trash-o"></i></button>';
-														
-    $(this).addClass('hover').append(actions); 
+	   var class_name=$(this).attr('class');
+	   var booking_id=$(this).attr('booking-id');
+	   var actions='';
+	   if(class_name!='solot' && booking_id!=null && booking_id!='' ){
+			actions='<button type="button" class="mr-xs btn btn-xs btn-info pull-left" onclick="slot_action()"><i class="fa fa-pencil"></i></button>'+
+					'<button type="button" class="btn btn-xs btn-danger pull-left"><i class="fa fa-trash-o"></i></button>';
+	   }										
+		$(this).append(actions); 
+		//$(this).addClass('hover').append(actions); 
 	}, function() {
 		$(this).removeClass('hover').find("button").remove();
 	});

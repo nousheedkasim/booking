@@ -18,9 +18,9 @@
 		    $diagnosis_id       = $this->input->post('diagnosis_id');
 		    $diagnosis_duration = $this->input->post('diagnosis_duration');
 			 if($this->input->post('diagnosis_duration')==null){
-				 $diag_string 		= "SELECT diagnose_slot_duration FROM tbl_diagnose WHERE diagnose_id=$diagnosis_id";
-				$diag_query  		= $this->db->query($diag_string);
-				$diagnosis_duration = $diag_query->row()->diagnose_slot_duration;
+				$diagnosis_string 	= "SELECT diagnose_slot_duration FROM tbl_diagnose WHERE diagnose_id=$diagnosis_id";
+				$diagnosis_query  	= $this->db->query($diagnosis_string);
+				$diagnosis_duration = $diagnosis_query->row()->diagnose_slot_duration;
 			 }
 			$doctor_array=array();
 			
@@ -148,15 +148,16 @@
 		       }
 		       
 		        
-        		$clinic_id	=  $this->input->post('clinic_id');
-        		$doctor_id	=  $this->input->post('doctor_id');
+        		$clinic_id		=  $this->input->post('clinic_id');
+        		$doctor_id		=  $this->input->post('doctor_id');
         		$booking_date	=  date("Y-m-d", strtotime($this->input->post('booking_date')));
         		$actual_time	=  $this->input->post('actual_time');
-        	    $diagnosis	=  $this->input->post('diagnosis_id');
+        	    $diagnosis		=  $this->input->post('diagnosis_id');
+				$duration		=  $this->input->post('diagnosis_duration');
+        		$no_of_slots 	= $duration/SLOT_MINIMUM_DURATION;
         		
-        		
-        		$booking_string="INSERT INTO  tbl_booking (booking_tocken,booking_patient,booking_diagnosis, booking_clinic, booking_doctor,booking_date,booking_time)
-                                SELECT CONCAT('TK',case when max(booking_id) is NOT null then max(booking_id)+1 else 1 end),$patient_id,$diagnosis,$clinic_id,$doctor_id,'$booking_date','$actual_time'
+        		$booking_string="INSERT INTO  tbl_booking (booking_tocken,booking_patient,booking_diagnosis, booking_clinic, booking_doctor,booking_date,booking_time,booking_no_of_slots)
+                                SELECT CONCAT('TK',case when max(booking_id) is NOT null then max(booking_id)+1 else 1 end),$patient_id,$diagnosis,$clinic_id,$doctor_id,'$booking_date','$actual_time',$no_of_slots
                                 FROM  tbl_booking";
 		
 			    if($this->db->query($booking_string)){
@@ -453,7 +454,7 @@
 					$doctor_id		= $doctor->doctor_id;
 					$booking_string = " SELECT booking_id,patient_id,patient_name,patient_mobile,doctor_id,booking_time,
 											diagnose_name,diagnose_slot_duration,TIME_TO_SEC(booking_time)/60 as slot_from,
-											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status
+											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status,status_id
 										FROM tbl_booking 
 										INNER JOIN tbl_patient ON booking_patient=patient_id
 										INNER JOIN tbl_doctor ON booking_doctor=doctor_id
@@ -474,7 +475,9 @@
 					$td=[];
 					foreach($doctor_array as $key=>$row){
 						if($key==0){
-							$td[]=[$slot_time,'ST-'.$i];
+							
+							$time=sprintf("%02d",intdiv($slot_time, 60)).':'. sprintf("%02d", ($slot_time % 60));
+							$td[]=[date('h:i a ', strtotime($time)) ,'ST-'.$i];
 						}
 						else{
 							$det=[];

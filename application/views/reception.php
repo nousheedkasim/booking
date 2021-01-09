@@ -181,9 +181,9 @@
 										<tr>
 										<?php 
 										foreach($bookings['th'] as $key=>$th){ 
-											$width= 95/count($bookings['th']);
+											$width= 93/count($bookings['th']);
 											if($key==0){
-												$width=5;
+												$width=7;
 											}
 										?>
 											<th class="text-right" width="<?php echo $width.'%';?>"><?php echo $th['name']; ?></th>
@@ -200,18 +200,44 @@
 										<tr>
 										
 											<?php 
-											 foreach($tr as $key=> $td){ ?>
+											foreach($tr as $key=> $td){ 
+											
+												$data='';
+												$class='';
+												$booking_id=null;
+												if(!empty($td)) { 
+													if($key==0){
+														$data=$td[0]; 
+														//echo $td[0].'-'.$td[1]; 
+														$class='solot';
+													}
+													else{
+														$class='text-right';
+														$data=$td->patient_name;
+														$booking_id=$td->booking_id;
+														if($td->status_id==1){
+															$class=$class.' bg-success';
+														}
+													}
+												} ?><td booking-id="<?php echo $booking_id; ?>" class="<?php echo $class; ?>"><?php echo $data; ?> </td>
+												
+											<?php	
+											 }
+											
+											
+											 /*foreach($tr as $key=> $td){ ?>
 											
 												<td class="text-right"> <?php  if(!empty($td)) { 
 													if($key==0){
-														echo $td[0].'-'.$td[1]; 
+														echo $td[0]; 
+														//echo $td[0].'-'.$td[1]; 
 													}
 													else{
 													}
 												} ?></td>
 												
 											<?php	
-											 }
+											 }*/
 											?>
 										</tr>
 										<?php
