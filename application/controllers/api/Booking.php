@@ -346,7 +346,11 @@ class Booking extends CI_Controller {
 		echo json_encode($json);
 	}
 	
-	
+	public function patient_booking1(){
+		$this->load->model('Booking_model');
+		$data=$this->Booking_model->patient_booking();
+		print_r($data);
+	}
 
 	
 }

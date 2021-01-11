@@ -30,6 +30,23 @@ class Booking extends MY_Controller {
 		print_r($data);
 	}
 	
+	public function test(){
+		$this->load->model('Booking_model');
+		$data=$this->Booking_model->test();
+		
+		
+		echo json_encode($data);
+	}
+	
+	public function test1(){
+		echo 1111; die();
+		//$this->load->model('Booking_model');
+		//$data=$this->Booking_model->test1();
+		
+		
+		//echo json_encode($data);
+	}
+	
 	
 	
 }
