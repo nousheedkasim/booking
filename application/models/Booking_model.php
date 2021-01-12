@@ -520,11 +520,10 @@
 			//$date			= date("Y-m-d");
 			$date			="2020-12-25";
 			$min_duration	= SLOT_MINIMUM_DURATION;
-			
 			$table			= array();
 			$doctor_string	="SELECT doctor_id,doctor_name,
 									CEIL(((TIME_TO_SEC(schedule_to) - TIME_TO_SEC(schedule_from))/60)/$min_duration) AS total_slot,
-									TIME_TO_SEC(schedule_from)/60 as slot_start
+									cast(TIME_TO_SEC(schedule_from)/60 as decimal(6,2)) as slot_start
 							FROM tbl_doctor
 							INNER JOIN tbl_doctor_clinic ON doctor_clinic_doctor=doctor_id
 							INNER JOIN tbl_clinic ON clinic_id=doctor_clinic_clinic
@@ -550,8 +549,9 @@
 					
 					$doctor_id		= $doctor->doctor_id;
 					$booking_string = " SELECT booking_id,patient_id,patient_name,patient_mobile,doctor_id,booking_time,
-											diagnose_name,diagnose_slot_duration,TIME_TO_SEC(booking_time)/60 as slot_from,
-											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status,status_id
+											diagnose_name,diagnose_slot_duration,cast(TIME_TO_SEC(booking_time)/60 as decimal(6,2)) as slot_from,
+											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status,status_id,
+											((TIME_TO_SEC(booking_time)/60)-(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration)/$min_duration as no_slots
 										FROM tbl_booking 
 										INNER JOIN tbl_patient ON booking_patient=patient_id
 										INNER JOIN tbl_doctor ON booking_doctor=doctor_id
@@ -571,15 +571,25 @@
 					
 					$td=[];
 					foreach($doctor_array as $key=>$row){
-						if($key==0){
+						
+						
+						foreach($row as $item){
+								echo "<pre>";
+								print_r($item);
+								echo "<pre>";
+							}
+						/*//if($key==0){
 							
-							$time=sprintf("%02d",intdiv($slot_time, 60)).':'. sprintf("%02d", ($slot_time % 60));
-							$td[]=[date('h:i a ', strtotime($time)) ,'ST-'.$i];
-						}
-						else{
+							//$time=sprintf("%02d",intdiv($slot_time, 60)).':'. sprintf("%02d", ($slot_time % 60));
+							//$td[]=[date('h:i a ', strtotime($time)) ,'ST-'.$i];
+						//}
+						//else{
+							
 							$det=[];
 							foreach($row as $item){
 								
+								//echo $slot_time."-";
+								//echo $item->slot_from."<br>";
 								if($item->slot_from==$slot_time){
 									$dett=$item;
 								}
@@ -589,16 +599,20 @@
 								$det=$dett;
 							}
 							$td[]=$det;
-								//
+								
 							
-						}
+						//}*/
 					}
 					$tr[]=$td;
-					$slot_time=$slot_time+$min_duration;
+					$slot_time=sprintf('%0.2f',$slot_time+$min_duration);
 				}
 				$table=['th'=>$th,'tr'=>$tr];
 			}
-			return $table;
+			//echo "<pre>";
+			//print_r($table); 
+			//echo "<pre>"; die();
+			//return $table;
+			die();
 		}
 
 		

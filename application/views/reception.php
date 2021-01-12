@@ -175,6 +175,7 @@
 						<section class="panel mb-xs">
 						
 						<div class="panel-body">
+						<?php if(count($bookings)>0){ ?>
 							<div class="table-responsive">
 								<table class="table table-bordered table-striped table-condensed mb-none" id="booking_table">
 									<thead>
@@ -264,6 +265,7 @@
 									</tbody>
 								</table>
 							</div>	
+						<?php } ?>
 						</div>
 						</section>
 					
