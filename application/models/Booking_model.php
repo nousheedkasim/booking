@@ -615,6 +615,89 @@
 			die();
 		}
 
+		public function test($user_id,$user_type){
+			
+			//echo  $user_id."<br>";
+			//echo  $user_type."<br>";
+			
+			$date			="2020-12-25";
+			$min_duration	= SLOT_MINIMUM_DURATION;
+			$table			= array();
+			$clinic_string	="SELECT clinic_id,TIME_TO_SEC(schedule_from)/60 as schedule_from,
+								TIME_TO_SEC(schedule_to)/60 as schedule_to
+							FROM tbl_clinic 
+							INNER JOIN tbl_clinic_schedule ON clinic_id=schedule_clinic
+							WHERE clinic_user=$user_id 	
+								AND WEEKDAY('$date')=schedule_day
+								AND schedule_status=1";
+			$clinic_query  	= $this->db->query($clinic_string);
+            $clinic_result	= $clinic_query->row();
+			
+			$clinic_id		= $clinic_result->clinic_id;
+			$clinic_from	= $clinic_result->schedule_from;
+			$clinic_to		= $clinic_result->schedule_to;
+			//echo $clinic_from."<br>";
+			//echo $clinic_to."<br>";
+			
+			for($slot_time=$clinic_from+0;$slot_time<=$clinic_to;$slot_time=$slot_time+$min_duration){
+				//echo $slot_time;
+				//echo "<br>";
+				$slot_array[]=$slot_time;
+				$slot_time_array[$slot_time]=[];
+			}
+			//echo "<pre>";
+			//print_r($slot_time_array);
+			//echo "<pre>";
+			$doctor_string	="SELECT doctor_id,doctor_name
+							FROM tbl_doctor
+							INNER JOIN tbl_doctor_clinic ON doctor_clinic_doctor=doctor_id
+							WHERE doctor_clinic_clinic=$clinic_id 
+								AND doctor_clinic_status=1
+								AND WEEKDAY('$date')=doctor_clinic_day	
+							ORDER BY doctor_name ASC";
+			$doctor_query  	= $this->db->query($doctor_string);
+            $doctor_result	= $doctor_query->result();
+			//echo "<br>";
+			$doctor_slot[]=$slot_array;
+			$head[]='Slot';
+			if(count($doctor_result)>0){
+				foreach($doctor_result as $doctor){
+				
+					$doctor_id		= $doctor->doctor_id;
+					$booking_string = " SELECT booking_id,patient_id,patient_name,patient_mobile,booking_time,
+											diagnose_name,diagnose_slot_duration,cast(TIME_TO_SEC(booking_time)/60 as decimal(6,0)) as slot_from,
+											(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration as slot_to,status_title as booking_status,status_id,
+											((TIME_TO_SEC(booking_time)/60)-(TIME_TO_SEC(booking_time)/60)+diagnose_slot_duration)/$min_duration as no_slots
+										FROM tbl_booking 
+										INNER JOIN tbl_patient ON booking_patient=patient_id
+										INNER JOIN tbl_status ON booking_status=status_id
+										INNER JOIN tbl_diagnose ON booking_diagnosis=diagnose_id
+										WHERE booking_clinic=$clinic_id 
+											AND booking_date='$date' 
+											AND booking_doctor=$doctor_id";
+					$booking_query  = $this->db->query($booking_string);
+					$booking_result =  $booking_query->result();
+					
+					foreach($booking_result as $booking_row){
+						
+						$slot_key=$booking_row->slot_from;
+						$slot_time_array[$slot_key]=$booking_row;
+					}
+					$doctor_slot[]=$slot_time_array;
+					$head[]=$doctor->doctor_name;
+					//echo "<pre>";
+					//print_r($booking_result);
+					//echo "<pre>";
+					//print_r($slot_time_array);
+				}
+				
+				$bookings=array('head'=>$head,'row'=>$doctor_slot,'slot_count'=>count($slot_array));
+				
+				return $bookings;
+				
+			}
+			
+		}
 		
 
     }

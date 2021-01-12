@@ -181,13 +181,13 @@
 									<thead>
 										<tr>
 										<?php 
-										foreach($bookings['head'] as $key=>$th){ 
-											$width= 93/count($bookings['head']);
-											//if($key==0){
-												//$width=7;
-											//}
+										foreach($bookings['th'] as $key=>$th){ 
+											$width= 93/count($bookings['th']);
+											if($key==0){
+												$width=7;
+											}
 										?>
-											<th class="text-right" width="<?php echo $width.'%';?>"><?php echo $th; ?></th>
+											<th class="text-right" width="<?php echo $width.'%';?>"><?php echo $th['name']; ?></th>
 											
 										<?php
 										} ?>
@@ -195,30 +195,73 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php
-										for($i=0;$i<$bookings['slot_count'];$i++)
-										{ ?>
-											<tr>
-												<?php
-												foreach($bookings['row'] as $key=>$row ){ 
+										<?php  
+										foreach($bookings['tr'] as $tr){ 
+										?>
+										<tr>
+										
+											<?php 
+											foreach($tr as $key=> $td){ 
+											
+												$data='';
+												$class='';
+												$booking_id=null;
+												if(!empty($td)) { 
 													if($key==0){
-														echo "<td>".$row[$i]."</td>";
-														$slot=$row[$i];
+														$data=$td[0]; 
+														//echo $td[0].'-'.$td[1]; 
+														$class='solot';
 													}
-												 else{ 
-												 ?>
-													 <td><?php if(!empty($row[$slot])){ echo $row[$slot]->patient_name;} ?></td>
-													 <?php
-												 }
+													else{
+														$class='text-right';
+														$data=$td->patient_name;
+														$booking_id=$td->booking_id;
+														if($td->status_id==1){
+															$class=$class.' bg-success';
+														}
+													}
+												} ?><td booking-id="<?php echo $booking_id; ?>" class="<?php echo $class; ?>"><?php echo $data; ?> </td>
 												
-												}
-												?>
-											</tr>
-										
-										<?php	
-										}
-										
-										 ?>
+											<?php	
+											 }
+											
+											
+											 /*foreach($tr as $key=> $td){ ?>
+											
+												<td class="text-right"> <?php  if(!empty($td)) { 
+													if($key==0){
+														echo $td[0]; 
+														//echo $td[0].'-'.$td[1]; 
+													}
+													else{
+													}
+												} ?></td>
+												
+											<?php	
+											 }*/
+											?>
+										</tr>
+										<?php
+										} ?>
+										<!--<tr>
+											<td>S1</td>
+											
+											<td class="text-right booked" rowspan="2" >Tk-1:Rahul</td>
+											<td class="text-right">-0.01</td>
+											<td class="text-right">-0.36%</td>
+											
+										</tr>
+										<tr>
+											<td>S2</td>
+											
+											
+											<td class="text-right">-0.01</td>
+											
+										<td class="text-right actions-hover">
+															ttt
+											</td>
+											
+										</tr>-->
 									</tbody>
 								</table>
 							</div>	
