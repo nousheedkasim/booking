@@ -183,9 +183,9 @@
 										<?php 
 										foreach($bookings['head'] as $key=>$th){ 
 											$width= 93/count($bookings['head']);
-											//if($key==0){
-												//$width=7;
-											//}
+											if($key==0){
+												$width=7;
+											}
 										?>
 											<th class="text-right" width="<?php echo $width.'%';?>"><?php echo $th; ?></th>
 											
@@ -202,7 +202,9 @@
 												<?php
 												foreach($bookings['row'] as $key=>$row ){ 
 													if($key==0){
-														echo "<td>".$row[$i]."</td>";
+														$slot_time=$row[$i];
+														$time=sprintf("%02d",intdiv($slot_time, 60)).':'. sprintf("%02d", ($slot_time % 60));
+														echo "<td>".date('h:i a ', strtotime($time)) ."</td>";
 														$slot=$row[$i];
 													}
 												 else{ 
