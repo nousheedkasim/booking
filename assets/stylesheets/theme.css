@@ -40,10 +40,12 @@ a:active {
 /* Layout Base - Header */
 .header {
 	height: 40px;
-	left: 0;
+	/*left: 0;*/
+	left: 60px;
 	position: absolute;
 	right: 0;
 	top: 0;
+	
 }
 
 
@@ -62,7 +64,7 @@ a:active {
 /* Layout Base - Content Body */
 .content-body {
 	display: table-cell;
-	padding: 40px;
+	/*padding: 40px;*/
 	position: relative;
 	vertical-align: top;
 }
@@ -205,9 +207,12 @@ a:active {
 	html.fixed .sidebar-left {
 		bottom: 0;
 		left: 0;
-		padding-bottom: 50px;
+		padding-bottom: 34px;
 		position: fixed;
-		top: 40px;
+		/*top: 40px;*/
+		top: 0px;
+		
+		
 	}
 
 	html.fixed .sidebar-left .nano-content {
@@ -1445,16 +1450,17 @@ html.fixed .visible-xl-inline-block {
 }
 
 .header .toggle-sidebar-left {
-	background: #cccccc;
+	/*background: #cccccc;*/
 	border-radius: 100px;
-	color: white;
-	height: 30px;
-	line-height: 30px;
+	/*color: white;*/
+	color: #2e353e;
+	height: 35px;
+	line-height: 28px;
 	position: absolute;
-	right: 15px;
+	/*right: 15px;*/
 	text-align: center;
 	top: 2px;
-	width: 30px;
+	width: 32px;
 }
 
 .header-right {
@@ -1638,6 +1644,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 
 	html.sidebar-left-collapsed.scroll .sidebar-left, html.sidebar-left-collapsed.boxed .sidebar-left {
 		overflow: visible;
+		top: -40px;
 	}
 
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main li.nav-active a:hover, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main li.nav-active a:hover {
@@ -1654,13 +1661,13 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main li ul.nav-children, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main li ul.nav-children {
 		position: absolute;
-		left: 67px;
+		left: 60px;
 		width: 233px;
-		background: #191c21;
+		
 	}
 
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main > li:hover, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main > li:hover {
-		width: 300px;
+		width: 293px;
 		background: #191c21;
 	}
 
@@ -5007,6 +5014,7 @@ html.header-dark .notifications > li .notification-icon i {
 	margin: 3px 17px 0 0;
 	position: relative;
 	vertical-align: middle;
+	float: right;
 }
 
 .userbox > a {
@@ -5116,11 +5124,13 @@ html.header-dark .notifications > li .notification-icon i {
 @media only screen and (max-width: 767px) {
 	.userbox {
 		float: left;
+		float: right;
 		margin: 3px 0 0 1px;
 		position: relative;
+		right: 20px;
 	}
 
-	.userbox:after {
+	/*.userbox:after {
 		background: #E9E9E6;
 		content: '';
 		height: 63px;
@@ -5129,7 +5139,7 @@ html.header-dark .notifications > li .notification-icon i {
 		right: -21px;
 		top: -18px;
 		width: 1px;
-	}
+	}*/
 
 	.userbox .profile-picture {
 		display: none;

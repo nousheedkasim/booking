@@ -1392,8 +1392,8 @@ pre code {
     width: 750px;
   }
   .row {
-  margin-left: -48px;
-  margin-right: -50px;
+  /*margin-left: -48px;
+  margin-right: -50px;*/
  }
 .row_1 {
   margin-left: -40px;

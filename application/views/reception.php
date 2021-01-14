@@ -25,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/vendor/time-schedule/css/mark-your-calendar.css">
     
 		<section role="main" class="content-body" id="reception">
-			<header class="page-header">
+			<!--<header class="page-header">
 				<div class="right-wrapper pull-left">
 					<ol class="breadcrumbs">
 						<li>
@@ -36,7 +36,7 @@
 						<li><span>Dashboard</span></li>
 					</ol>
 				</div>
-			</header>
+			</header>-->
 			
 			<!-- start: page -->
 
@@ -44,67 +44,75 @@
 			
 				
 				
-				<div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 p-none float-right-lg ">
-					<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-						<section class="panel panel-featured-left panel-featured-info mb-xs">
-							<div class="panel-body pt-sm pb-xs">
-								<div class="widget-summary">
-									<div class="widget-summary-col" style="vertical-align:middle !important;">
-										<div class="summary" style="min-height: 10px;">
-											<h4 class="title">Appoinment</h4>
-										</div>
-									</div>
-									<div class="widget-summary-col widget-summary-col-icon">
-										<div class="summary-icon-md bg-info rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
-											999
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-					<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-						<section class="panel panel-featured-left panel-featured-success mb-xs">
-							<div class="panel-body pt-sm pb-xs">
-								<div class="widget-summary">
-									<div class="widget-summary-col" style="vertical-align:middle !important;">
-										<div class="summary" style="min-height: 10px;">
-											<h4 class="title">Check-In</h4>
-											
-										</div>
-									</div>
-									<div class="widget-summary-col widget-summary-col-icon">
-										<div class="summary-icon-md bg-success rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
-											999
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-					
-					<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-						<section class="panel panel-featured-left panel-featured-warning mb-xs">
-							<div class="panel-body pt-sm pb-xs">
-								<div class="widget-summary">
-									<div class="widget-summary-col" style="vertical-align:middle !important;">
-										<div class="summary" style="min-height: 10px;">
-											<h4 class="title">Check-Out</h4>
-											
-										</div>
-									</div>
-									<div class="widget-summary-col widget-summary-col-icon">
-										<div class="summary-icon-md bg-warning rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
-											999
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
 				
-				<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+				
+				<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
+				
+				
+						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
+							<div class="panel-body">
+								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+						
+									<div class="widget-summary">
+										<div class="widget-summary-col" style="vertical-align:middle !important;">
+											<div class="summary" style="min-height: 10px;">
+												<h4 class="title">Appoinment</h4>
+												
+											</div>
+										</div>
+										<div class="widget-summary-col widget-summary-col-icon">
+											<div class="summary-icon-md bg-info rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
+												999
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</section>
+						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
+							<div class="panel-body">
+								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+						
+									<div class="widget-summary">
+										<div class="widget-summary-col" style="vertical-align:middle !important;">
+											<div class="summary" style="min-height: 10px;">
+												<h4 class="title">Check-In</h4>
+												
+											</div>
+										</div>
+										<div class="widget-summary-col widget-summary-col-icon">
+											<div class="summary-icon-md bg-success rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
+												999
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</section>
+						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
+							<div class="panel-body">
+								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+						
+									<div class="widget-summary">
+										<div class="widget-summary-col" style="vertical-align:middle !important;">
+											<div class="summary" style="min-height: 10px;">
+												<h4 class="title">Check-Out</h4>
+												
+											</div>
+										</div>
+										<div class="widget-summary-col widget-summary-col-icon">
+											<div class="summary-icon-md bg-warning rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
+												999
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</section>
+				
 					<section class="panel mb-xs">
 							<div class="panel-body">
 								<form id="booking_form" method="post">
@@ -169,15 +177,72 @@
 					
 					
 					
-				<div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+				<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+				
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+							
+						</div>
+						
+						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+							<section class="panel mb-xs">
+							
+								<div class="panel-body">
+								
+								</div>
+							</section>
+						</div>
+						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+							<section class="panel mb-xs">
+							
+								<div class="panel-body">
+								
+								</div>
+							</section>
+						</div>
+						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+							<section class="panel mb-xs">
+							
+								<div class="panel-body">
+								
+								</div>
+							</section>
+						</div>
+				
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
 						
 						
-						<section class="panel mb-xs">
+						
+							
+							
+								<div class="panel-body mb-xs" style="box-shadow: 0px 0px 3px 0px;">
+								
+								</div>
+							
+							
+								<div class="panel-body mb-xs">
+								
+								</div>
+							
+							
+							<div class="panel-body mb-xs">
+								
+								</div>
+						
+						
+				
+					</div>
+						
+						
+						
+						
+						<!--<section class="panel mb-xs">
 						
 						<div class="panel-body">
 						<?php if(count($bookings)>0){ ?>
 							<div class="table-responsive">
-								<table class="table table-bordered table-striped table-condensed mb-none" id="booking_table">
+								<!--<table class="table table-bordered table-striped table-condensed mb-none" id="booking_table">
 									<thead>
 										<tr>
 										<?php 
@@ -222,11 +287,11 @@
 										
 										 ?>
 									</tbody>
-								</table>
+								</table>-->
 							</div>	
 						<?php } ?>
 						</div>
-						</section>
+						</section>-->
 					
 					</div>
 				
