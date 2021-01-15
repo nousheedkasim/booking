@@ -3436,6 +3436,11 @@ html.dark .text-muted {
 	white-space: normal;
 }
 
+.bg-hash{
+	
+	background: #e3e3e4;
+	color: #black;
+}
 .bg-default {
 	background: #ebebeb;
 	color: #777777;

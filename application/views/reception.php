@@ -50,7 +50,7 @@
 				
 				
 						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
-							<div class="panel-body">
+							<div class="panel-body p-xs">
 								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
 						
 									<div class="widget-summary">
@@ -71,7 +71,7 @@
 							</div>
 						</section>
 						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
-							<div class="panel-body">
+							<div class="panel-body p-xs">
 								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
 						
 									<div class="widget-summary">
@@ -92,7 +92,7 @@
 							</div>
 						</section>
 						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
-							<div class="panel-body">
+							<div class="panel-body p-xs">
 								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
 						
 									<div class="widget-summary">
@@ -179,56 +179,113 @@
 					
 				<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
 				
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none mb-sm">
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							
 						</div>
 						
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-							<section class="panel mb-xs">
 							
-								<div class="panel-body">
-								
+								<div class="panel-body p-none">
+									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control">
 								</div>
-							</section>
+							
 						</div>
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-							<section class="panel mb-xs">
 							
-								<div class="panel-body">
-								
+								<div class="panel-body p-none">
+									
+										<select id="doctor" name="doctor_id" class="form-control" required="">
+											<option value="">Choose a Doctor</option>
+										</select>
+									
 								</div>
-							</section>
+							
 						</div>
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-							<section class="panel mb-xs">
 							
-								<div class="panel-body">
-								
+							
+								<div class="panel-body p-none">
+									<select id="doctor" name="doctor_id" class="form-control" required="">
+											<option value="">Choose a Doctor</option>
+										</select>
 								</div>
-							</section>
+							
 						</div>
 				
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="font-size:15px;">
 						
 						
 						
 							
 							
-								<div class="panel-body mb-xs" style="box-shadow: 0px 0px 3px 0px;">
-								
+							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
+									<span>09:30</span>
 								</div>
-							
-							
-								<div class="panel-body mb-xs">
-								
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px" >
+									<span> 15/01/2021</span>
 								</div>
-							
-							
-							<div class="panel-body mb-xs">
-								
+								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
+									<span> Afsal PT - 9895102230</span>
 								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Dr:Aslam-Gass</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Active</span>
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm btn-primary btn-circle" style="border-radius: 50%;"><i class="fa fa-pencil"></i></button>
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;">
+									<span> Edit</span>
+								</div>
+								
+								
+							</div>
+							
+							<div class="panel-body mb-xs p-xs" style="box-shadow: 1px 1px 3px 0px;">
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-xs  mr-sm" >
+									<span> 09:30</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> 15/01/2021</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> Raseel</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> Gass</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-xs" style="background-color:#e3e3e4; clor:black; border-radius: 12px;">
+									<span> Dr:Aslam</span>
+								</div>
+								
+								
+							</div>
+							
+							
+								<div class="panel-body mb-xs p-xs" style="box-shadow: 1px 1px 3px 0px;">
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-xs  mr-sm" >
+									<span> 09:30</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> 15/01/2021</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> Raseel</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
+									<span> Gass</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-xs" style="background-color:#e3e3e4; clor:black; border-radius: 12px;">
+									<span> Dr:Aslam</span>
+								</div>
+								
+								
+							</div>
 						
 						
 				
