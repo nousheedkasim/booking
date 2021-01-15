@@ -19,6 +19,11 @@
 	background-color: #cccccc;
 	
 }
+.bg-hash{
+	background-color: #d5dadc;
+    border-color: #cbd8de;
+	color: #252323;
+}
 #booking_table > tbody > tr > td{ line-height: 1.7;}
 </style>
 	
@@ -221,68 +226,102 @@
 							
 							
 							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
 									<span>09:30</span>
 								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px" >
-									<span> 15/01/2021</span>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
+									<span> 15-Jan</span>
 								</div>
 								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
 									<span> Afsal PT - 9895102230</span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Dr:Aslam-Gass</span>
+									<span> Dr:Aslam</span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Fevre</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
 									<span> Active</span>
 								</div>
 								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
-									<button type="button" class="btn btn-sm btn-primary btn-circle" style="border-radius: 50%;"><i class="fa fa-pencil"></i></button>
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
+									
+									
 								</div>
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;">
-									<span> Edit</span>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
+									
+									
 								</div>
 								
-								
-							</div>
-							
-							<div class="panel-body mb-xs p-xs" style="box-shadow: 1px 1px 3px 0px;">
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-xs  mr-sm" >
-									<span> 09:30</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> 15/01/2021</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> Raseel</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> Gass</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-xs" style="background-color:#e3e3e4; clor:black; border-radius: 12px;">
-									<span> Dr:Aslam</span>
-								</div>
 								
 								
 							</div>
 							
-							
-								<div class="panel-body mb-xs p-xs" style="box-shadow: 1px 1px 3px 0px;">
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-xs  mr-sm" >
-									<span> 09:30</span>
+							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
+									<span>09:30</span>
 								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> 15/01/2021</span>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
+									<span> 15-Jan</span>
 								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> Raseel</span>
+								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
+									<span> Afsal PT - 9895102230</span>
 								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-sm" >
-									<span> Gass</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-xs ml-sm  mr-xs" style="background-color:#e3e3e4; clor:black; border-radius: 12px;">
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
 									<span> Dr:Aslam</span>
 								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Fevre</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
+									<span> Active</span>
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
+									
+									
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
+									
+									
+								</div>
+								
+								
+								
+							</div>
+							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
+									<span>09:30</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
+									<span> 15-Jan</span>
+								</div>
+								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
+									<span> Afsal PT - 9895102230</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Dr:Aslam</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
+									<span> Fevre</span>
+								</div>
+								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
+									<span> Active</span>
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
+									
+									
+								</div>
+								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
+									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-trash-o"></i></button>
+									
+									
+								</div>
+								
 								
 								
 							</div>
