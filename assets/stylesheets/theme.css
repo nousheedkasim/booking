@@ -3,6 +3,10 @@ html,
 body {
 	background: #ecedf0;
 	width: 100%;
+	
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
 html {
@@ -207,7 +211,7 @@ a:active {
 	html.fixed .sidebar-left {
 		bottom: 0;
 		left: 0;
-		padding-bottom: 34px;
+		/*padding-bottom: 34px;*/
 		position: fixed;
 		/*top: 40px;*/
 		top: 0px;
@@ -1587,7 +1591,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	html.scroll .sidebar-left .nano,
 	html.boxed .sidebar-left .nano {
 		position: static;
-		height: auto;
+		/*height: auto;*/
 		overflow: visible;
 		width: auto;
 	}
@@ -1644,7 +1648,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 
 	html.sidebar-left-collapsed.scroll .sidebar-left, html.sidebar-left-collapsed.boxed .sidebar-left {
 		overflow: visible;
-		top: -40px;
+		/*top: -40px;*/
 	}
 
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main li.nav-active a:hover, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main li.nav-active a:hover {
@@ -1662,12 +1666,12 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main li ul.nav-children, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main li ul.nav-children {
 		position: absolute;
 		left: 60px;
-		width: 233px;
+		width: 180px;
 		
 	}
 
 	html.sidebar-left-collapsed.scroll .sidebar-left .nav-main > li:hover, html.sidebar-left-collapsed.boxed .sidebar-left .nav-main > li:hover {
-		width: 293px;
+		width: 240px;
 		background: #191c21;
 	}
 
@@ -1962,7 +1966,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	}
 
 	html.fixed.sidebar-left-collapsed .content-body {
-		margin-left: 73px;
+		margin-left: 60px;
 	}
 
 	/* Layout Fixed - Sidebar Left Collapsed & Sidebar Right Opened */

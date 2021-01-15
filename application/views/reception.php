@@ -30,18 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/vendor/time-schedule/css/mark-your-calendar.css">
     
 		<section role="main" class="content-body" id="reception">
-			<!--<header class="page-header">
-				<div class="right-wrapper pull-left">
-					<ol class="breadcrumbs">
-						<li>
-							<a href="index.html">
-								<i class="fa fa-home"></i>
-							</a>
-						</li>
-						<li><span>Dashboard</span></li>
-					</ol>
-				</div>
-			</header>-->
+			
 			
 			<!-- start: page -->
 
@@ -182,21 +171,21 @@
 					
 					
 					
-				<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+				<div class="col-sm-9 col-md-9 col-lg-10 col-xl-10 bt_mg">
 				
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none mb-sm">
-						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
 							
 						</div>
 						
-						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
 							
 								<div class="panel-body p-none">
 									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control">
 								</div>
 							
 						</div>
-						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
 							
 								<div class="panel-body p-none">
 									
@@ -207,7 +196,7 @@
 								</div>
 							
 						</div>
-						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
 							
 							
 								<div class="panel-body p-none">
@@ -219,94 +208,30 @@
 						</div>
 				
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="font-size:15px;">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-xs" style="font-size:15px;">
 						
 						
 						
 							
+							<?php foreach ($bookings as $row){ ?>
+							
+							
 							
 							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
 								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
-									<span>09:30</span>
+									<span><?php echo $row->booking_time; ?></span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
-									<span> 15-Jan</span>
+									<span> <?php echo $row->booking_date; ?></span>
 								</div>
 								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
-									<span> Afsal PT - 9895102230</span>
+									<span> <?php echo $row->patient_name; ?></span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Dr:Aslam</span>
+									<span> <?php echo $row->doctor_name; ?></span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Fevre</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
-									<span> Active</span>
-								</div>
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
-									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
-									
-									
-								</div>
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
-									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
-									
-									
-								</div>
-								
-								
-								
-							</div>
-							
-							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
-									<span>09:30</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
-									<span> 15-Jan</span>
-								</div>
-								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
-									<span> Afsal PT - 9895102230</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Dr:Aslam</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Fevre</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
-									<span> Active</span>
-								</div>
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
-									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
-									
-									
-								</div>
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">
-									<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>
-									
-									
-								</div>
-								
-								
-								
-							</div>
-							<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;">
-								<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">
-									<span>09:30</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >
-									<span> 15-Jan</span>
-								</div>
-								<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">
-									<span> Afsal PT - 9895102230</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Dr:Aslam</span>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">
-									<span> Fevre</span>
+									<span> <?php echo $row->diagnose_name; ?></span>
 								</div>
 								<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">
 									<span> Active</span>
@@ -326,7 +251,7 @@
 								
 							</div>
 						
-						
+							<?php  } ?>
 				
 					</div>
 						
@@ -387,7 +312,7 @@
 							</div>	
 						<?php } ?>
 						</div>
-						</section>-->
+						</section>
 					
 					</div>
 				

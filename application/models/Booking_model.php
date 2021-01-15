@@ -699,5 +699,41 @@
 			
 		}
 		
+		public function test1($user_id,$user_type){
+			
+			//echo  $user_id."<br>";
+			//echo  $user_type."<br>";
+			
+			$date			="2020-12-25";
+			
+				
+				
+					
+					$booking_string = " SELECT booking_id,patient_id,CONCAT(patient_name,'-',patient_mobile) as patient_name,patient_mobile,DATE_FORMAT(booking_time,'%l:%i %p') as booking_time,
+											diagnose_name,DATE_FORMAT(booking_date,'%b %e') as booking_date,doctor_name
+											FROM tbl_booking 
+										INNER JOIN tbl_patient ON booking_patient=patient_id
+										INNER JOIN tbl_status ON booking_status=status_id
+										INNER JOIN tbl_diagnose ON booking_diagnosis=diagnose_id
+										INNER JOIN tbl_doctor ON doctor_id=booking_doctor
+										WHERE 
+											 booking_date='$date' ";
+					$booking_query  = $this->db->query($booking_string);
+					$booking_result =  $booking_query->result();
+				
+					//echo "<pre>";
+					//print_r($booking_result);
+					//echo "<pre>";
+					//print_r($slot_time_array);
+				
+				
+				//$bookings=array('head'=>$head,'row'=>$doctor_slot,'slot_count'=>count($slot_array));
+				
+				return $booking_result;
+				
+			
+			
+		}
+		
 
     }
