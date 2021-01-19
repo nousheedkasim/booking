@@ -97,13 +97,13 @@
     /*border-right: 1px solid #e0e0e0;*/
     display: inline-block;
     height: 100%;
-    padding: 6px 15px 15px 15px;
+    padding: 6px 10px 15px 15px;
     vertical-align: top;
     width: 13.77%;
 }
 
 .myc-day-time-container:first-of-type {
-    padding-left: 15px;
+    padding-left: 10px;
 }
 
 .myc-day-time-container:last-of-type {
@@ -124,7 +124,7 @@
     margin-bottom: 5px;
     padding: 0px 0px 0px 0px;
     text-align: center;
-	width: 32%;
+	width: 31%;
     display: inline-block;
 }
 

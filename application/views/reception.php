@@ -117,7 +117,7 @@
 									<input class="form-control mt-xs hide" type="text" name="patient_id" id="patient_id">
 									<input class="form-control mt-xs hide" type="hidden" name="status" id="status">
 									<input class="form-control mt-xs" type="text" name="patient_mobile" id="mobile" placeholder="Mobile" maxlength="10">
-									<input class="form-control mt-xs" type="text" data-plugin-datepicker="" data-plugin-masked-input="" data-input-mask="99/99/9999" placeholder="__/__/____" name="patient_dob"  id="dob" placeholder="DOB">
+									<input class="form-control mt-xs" type="text" data-plugin-datepicker="" data-plugin-masked-input="" data-input-mask="99/99/9999" name="patient_dob"  id="dob" placeholder="DOB">
 									<div class="mt-xs">
 										<select id="gender" name="patient_gender" class="form-control mt-xs" style="margin-top:5px;" required="">
 											<option value="">Gender</option>

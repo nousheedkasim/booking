@@ -272,6 +272,17 @@ if ($("#reception").length) {
 				
 				
 			});
+			$("#dob").datepicker().on('changeDate', function(ev){
+				
+				if(validateDateFormt($(this).val())==true){
+					$("#gender").focus();
+				};
+				//$("#gender").focus();
+			});
+
+			//$("#dob").select(function(){
+				//$("#gender").focus();
+			//});
 			$("#gender").select2({
 				minimumResultsForSearch: Infinity
 			}).on('select2:select',function(){
@@ -293,6 +304,7 @@ if ($("#reception").length) {
 				minimumInputLength	: 1,
 				tags:true
 			}).on('select2:select',function(){
+				
 				$("#clinic").focus();
 			}); 
 			
@@ -511,34 +523,55 @@ if ($("#reception").length) {
 
 
 
-$("input1").keypress(function(e) {
-    //alert(555);
+	$("input1").keypress(function(e) {
+		//alert(555);
 
 
-    if (e.which === 13) {
-        e.preventDefault();
-        var target = $(':input').filter(':gt(' + $(':input').index(this) + ')').not('.readonly,.hide,hidden,.skip').first();
-        if (target.length > 0) {
+		if (e.which === 13) {
+			e.preventDefault();
+			var target = $(':input').filter(':gt(' + $(':input').index(this) + ')').not('.readonly,.hide,hidden,.skip').first();
+			if (target.length > 0) {
 
-            target.focus();
-        } else {
-            $(this).blur();
+				target.focus();
+			} else {
+				$(this).blur();
 
-        }
+			}
 
 
 
-    }
-});
+		}
+	});
 
-function is_number(params) {
-    if (isNaN(params) || params == '') {
-        var ret = 0;
-    } else {
-        var ret = params;
-    }
-    return ret;
-}
+	function is_number(params) {
+		if (isNaN(params) || params == '') {
+			var ret = 0;
+		} else {
+			var ret = params;
+		}
+		return ret;
+	}
+
+	function validateDateFormt(date){
+			
+		if(date.includes('-')){
+				
+			string=date.replace(/[^\w\s]/gi, '');
+		}
+		else if(date.search('/')){
+				
+			string=date.replace(/[^\w\s]/gi, '');
+		}
+		
+		if(string.length==8 && Number.isInteger(string)){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+		
+	}
 
 // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {

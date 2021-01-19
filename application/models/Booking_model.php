@@ -75,12 +75,15 @@
 				}	
 				if($flag==true){
 					
-					$aval_slots[]=sprintf("%02d",intdiv($slot, 60)).':'. sprintf("%02d", ($slot % 60));
+					$act_time=sprintf("%02d",intdiv($slot, 60)).':'. sprintf("%02d", ($slot % 60));
+					
+					 $array=['act_time'=>$act_time ];
+				    	$doctor_array[]=$array;
 					
 				}
 			}
 			
-			return $aval_slots;
+			return $doctor_array;
 		}
 		
        
@@ -228,23 +231,36 @@
         		$actual_time	=  $this->input->post('actual_time');
         	    $diagnosis		=  $this->input->post('diagnosis_id');
 				$duration		=  $this->input->post('diagnosis_duration');
-				$minimum_duration= SLOT_MINIMUM_DURATION;
+				
+				
+				if($this->input->post('diagnosis_duration')==null){
+					$diagnosis_string 	= "SELECT diagnose_slot_duration FROM tbl_diagnose WHERE diagnose_id=$diagnosis";
+					$diagnosis_query  	= $this->db->query($diagnosis_string);
+					$duration = $diagnosis_query->row()->diagnose_slot_duration;
+				}
+			
+				$minimum_duration = SLOT_MINIMUM_DURATION;
         		$no_of_slots 	= $duration/$minimum_duration;
 				
         		$this->db->trans_start();
 				
-					$booking_string="INSERT INTO  tbl_booking (booking_tocken,booking_patient,booking_diagnosis, booking_clinic, booking_doctor,booking_date)
-									SELECT CONCAT('TK',case when max(booking_id) is NOT null then max(booking_id)+1 else 1 end),$patient_id,$diagnosis,$clinic_id,$doctor_id,'$booking_date'
+					$booking_string="INSERT INTO  tbl_booking (booking_tocken,booking_patient,booking_diagnosis, booking_clinic, booking_doctor,booking_date,booking_time)
+									SELECT CONCAT('TK',case when max(booking_id) is NOT null then max(booking_id)+1 else 1 end),$patient_id,$diagnosis,$clinic_id,$doctor_id,'$booking_date','$actual_time'
 									FROM  tbl_booking";
 			
 					if($this->db->query($booking_string)){
 						
 						$booking_id=$this->db->insert_id();
+						$time_array=explode(':',$actual_time);
+						$actual_minut=($time_array[0]*60)+$time_array[1];
 						for($i=0;$i<$no_of_slots;$i++){
 							
-							//sprintf("%02d",intdiv($total_minut, 60)).':'. sprintf("%02d", ($total_minut % 60)) ;
-							$time 			= strtotime($actual_time);
-							$booking_slot 	= date("H:i", strtotime(+$minimum_duration, $time));
+							
+							$total_minut=$actual_minut+($i*$minimum_duration);
+							 $booking_slot=sprintf("%02d",intdiv($total_minut, 60)).':'. sprintf("%02d", ($total_minut % 60)) ;
+							//$time 			= strtotime($actual_time);
+							
+							//echo $booking_slot 	= date("H:i", $time);
 							
 							$slot_string="INSERT INTO  tbl_booking_slot (booking_slot_booking,booking_slot_time) VALUES($booking_id,'$booking_slot')";
 							$this->db->query($slot_string);	
