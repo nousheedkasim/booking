@@ -118,6 +118,9 @@
 									<input class="form-control mt-xs hide" type="hidden" name="status" id="status">
 									<input class="form-control mt-xs" type="text" name="patient_mobile" id="mobile" placeholder="Mobile" maxlength="10">
 									<input class="form-control mt-xs" type="text" data-plugin-datepicker="" data-plugin-masked-input="" data-input-mask="99/99/9999" name="patient_dob"  id="dob" placeholder="DOB">
+									<textarea class="form-control mt-xs" Placeholder="Address" id="patient_address" name="patient_address"></textarea>
+									<input class="form-control mt-xs" type="text" name="place" id="place" placeholder="Place" >
+
 									<div class="mt-xs">
 										<select id="gender" name="patient_gender" class="form-control mt-xs" style="margin-top:5px;" required="">
 											<option value="">Gender</option>
@@ -181,7 +184,7 @@
 						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
 							
 								<div class="panel-body p-none">
-									<input type="text" data-plugin-datepicker="" name="booking_date" class="form-control">
+									<input type="text" data-plugin-datepicker="" autocomplete="off" name="booking_date" class="form-control">
 								</div>
 							
 						</div>

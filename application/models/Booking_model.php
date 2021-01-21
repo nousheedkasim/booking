@@ -43,47 +43,53 @@
             $doctor_query  		= $this->db->query($doctor_string);
             $doctor_row 		= $doctor_query->row();
 			
+			if($doctor_query->num_rows()>0){
 			
 			
-			$from	= $doctor_row->cn_from;
-			$to		= $doctor_row->cn_to;
-			
-			for($i=$from; $i<$to;$i=$i+$min_duration)
-			{
-				$act_time=sprintf("%02d",intdiv($i, 60)).':'. sprintf("%02d", ($i % 60));
+				$from	= $doctor_row->cn_from;
+				$to		= $doctor_row->cn_to;
 				
-				if(!in_array($act_time,$booking_array)){
+				for($i=$from; $i<$to;$i=$i+$min_duration)
+				{
+					$act_time=sprintf("%02d",intdiv($i, 60)).':'. sprintf("%02d", ($i % 60));
 					
-					$slots_array[]=$i;
+					if(!in_array($act_time,$booking_array)){
+						
+						$slots_array[]=$i;
+					}
 				}
+				
+				
+				foreach($slots_array as $slot){
+					
+					$flag=false;
+					for($i=0;$i<$diagnosis_duration;$i=$i+$min_duration){
+						
+						if(in_array($slot+$i,$slots_array)){
+							$flag=true;
+						}
+						else{
+							$flag=false;
+							break;
+						}
+					
+					}	
+					if($flag==true){
+						
+						$act_time=sprintf("%02d",intdiv($slot, 60)).':'. sprintf("%02d", ($slot % 60));
+						
+						 $array=['act_time'=>$act_time ];
+							$doctor_array[]=$array;
+						
+					}
+				}
+				$slots_result=['status'=>1,'slots'=>$doctor_array];
+			}
+			else{
+				$slots_result=['status'=>0];
 			}
 			
-			
-			foreach($slots_array as $slot){
-				
-				$flag=false;
-				for($i=0;$i<$diagnosis_duration;$i=$i+$min_duration){
-					
-					if(in_array($slot+$i,$slots_array)){
-						$flag=true;
-					}
-					else{
-						$flag=false;
-						break;
-					}
-				
-				}	
-				if($flag==true){
-					
-					$act_time=sprintf("%02d",intdiv($slot, 60)).':'. sprintf("%02d", ($slot % 60));
-					
-					 $array=['act_time'=>$act_time ];
-				    	$doctor_array[]=$array;
-					
-				}
-			}
-			
-			return $doctor_array;
+			return $slots_result;
 		}
 		
        
@@ -218,6 +224,7 @@
         		    $patient_deatails['patient_mobile']	=  $this->input->post('patient_mobile');
         		    $patient_deatails['patient_dob']	=  date("Y-m-d", strtotime($this->input->post('patient_dob')));
         		    $patient_deatails['patient_refer_user']	=  $this->input->post('user_id');
+					$patient_deatails['patient_place'] =  $this->input->post('place');
         		        
         		   if($this->db->insert('tbl_patient', $patient_deatails)){
         		     $patient_id	= $this->db->insert_id();

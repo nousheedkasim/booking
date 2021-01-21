@@ -243,14 +243,13 @@ if ($("#reception").length) {
 							$("#dob").val(json.patient_data.patient_dob);
 							$("#gender").select2("val", json.patient_data.patient_gender);
 							$("#clinic").select2("val", json.patient_data.clinic_id);
+							$("#patient_address").html(json.patient_data.patient_address);
+							$("#place").val(json.patient_data.patient_place);
 							//$("#doctor").select2("val", json.patient_data.doctor_id);
 							$("#duration").val(json.patient_data.duration);
-							var data = {
-								id: 1,
-								text: 'Barn owl'
-							};
+							
 
-							var newOption = new Option(data.text, data.id, false, false);
+							var newOption = new Option(json.patient_data.doctor_name, json.patient_data.doctor_id, false, false);
 							$('#doctor').empty();
 							$('#doctor').append(newOption).trigger('change');
 								$("#diagnose").select2("val", json.patient_data.diagnosis_id);
@@ -416,15 +415,20 @@ if ($("#reception").length) {
 					
 					
 						var json = $.parseJSON(response);
+						if(json.status==1){
 						
-						var slot_array = [];
-						
-							$.each(json, function(key,value){
+							var slot_array = [];
 							
-								 slot_array.push(value.act_time);
-							});
-							
-						 slot= [slot_array];
+								$.each(json.slots, function(key,value){
+								
+									 slot_array.push(value.act_time);
+								});
+								
+							 slot= [slot_array];
+						}
+						else{
+							slot= [];
+						}
 					
 				}				
 				
@@ -436,7 +440,7 @@ if ($("#reception").length) {
 	 
 	 $("#booking_btn").click(function(){
 			if(!$(".myc-available-time").hasClass("selected")){
-				alert("INvalid slot");
+				alert("Invalid slot");
 			}
 			else{
 				
@@ -446,6 +450,11 @@ if ($("#reception").length) {
 					data: $("#booking_form").serialize(),
 					success: function(response){
 						
+						var json =JSON.parse(response);
+						
+						if(json.status==1){
+							location.reload();
+						}
 						
 					}				
 					
