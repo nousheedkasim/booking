@@ -49,7 +49,26 @@ class Booking extends MY_Controller {
 		
 		//echo json_encode($data);
 	}
+	// ** nsk-21/01/21 //
+	public function bookingList(){
+		
+		$this->load->model('Booking_model');
+		$clinic		= $this->uri->segment(3);
+		$date		= $this->uri->segment(4);
+		$doctor		= $this->uri->segment(5);
+		$patient	= $this->uri->segment(6);
+		
+		$data	= $this->Booking_model->bookingList($clinic,$date,$doctor,$patient);
+		
+		if(count($data)>0){
+			$json=['status'=>1,'data'=>$data];
+		}
+		else{
+			$json=['status'=>0];
+		}
+		echo json_encode($json);
+	}
 	
-	
+	// nsk-21/01/21 **//
 	
 }

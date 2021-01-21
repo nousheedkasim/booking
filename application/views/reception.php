@@ -43,7 +43,7 @@
 				<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
 				
 				
-						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
+						<section class="panel mb-xs panel-featured-left panel-featured-info mb-xs">
 							<div class="panel-body p-xs">
 								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
 						
@@ -64,14 +64,14 @@
 								</div>
 							</div>
 						</section>
-						<section class="panel mb-xs panel-featured-left panel-featured-warning mb-xs">
+						<section class="panel mb-xs panel-featured-left panel-featured-success mb-xs">
 							<div class="panel-body p-xs">
 								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
 						
 									<div class="widget-summary">
 										<div class="widget-summary-col" style="vertical-align:middle !important;">
 											<div class="summary" style="min-height: 10px;">
-												<h4 class="title">Check-In</h4>
+												<h4 class="title">Confirm</h4>
 												
 											</div>
 										</div>
@@ -92,7 +92,7 @@
 									<div class="widget-summary">
 										<div class="widget-summary-col" style="vertical-align:middle !important;">
 											<div class="summary" style="min-height: 10px;">
-												<h4 class="title">Check-Out</h4>
+												<h4 class="title">Cancel</h4>
 												
 											</div>
 										</div>
@@ -176,47 +176,59 @@
 					
 				<div class="col-sm-9 col-md-9 col-lg-10 col-xl-10 bt_mg">
 				
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none">
-						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none col-lg-offset-2 col-xl-offset-2">
+						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
 							
 						</div>
 						
-						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
+						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 mb-xs">
 							
 								<div class="panel-body p-none">
-									<input type="text" data-plugin-datepicker="" autocomplete="off" name="booking_date" class="form-control">
+									<input type="text" data-plugin-datepicker="" autocomplete="off" name="booking_list_date" id="booking_list_date" value="<?php echo date("d/m/Y"); ?>" class="form-control">
 								</div>
 							
 						</div>
-						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
+						
+						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 mb-xs">
+							<div class="panel-body p-none">
+								<select id="booking_list_clinic" name="booking_list_clinic" data-plugin-select class="form-control mt-xs" required="">
+									<option value="0">Choose a Clinic</option>
+									<?php foreach($clinics as $row){ ?>
+									<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
+									<?php
+									} ?>
+								</select>
+							</div>			
+						</div>
+						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 mb-xs">
 							
 								<div class="panel-body p-none">
 									
-										<select id="doctor" name="doctor_id" class="form-control" required="">
-											<option value="">Choose a Doctor</option>
+										<select id="booking_list_doctor" name="booking_list_doctor" class="form-control" >
+											<option value="0">Choose a Doctor</option>
 										</select>
 									
 								</div>
 							
 						</div>
-						<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-xs">
+						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 mb-xs">
 							
 							
 								<div class="panel-body p-none">
-									<select id="doctor" name="doctor_id" class="form-control" required="">
-											<option value="">Choose a Doctor</option>
+									<select id="booking_list_patient" name="booking_list_patient" class="form-control" >
+											<option value="0">Patient</option>
 										</select>
 								</div>
 							
 						</div>
 				
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-xs" style="font-size:15px;">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-xs" style="font-size:15px;" id="booking_list_div">
 						
 						
 						
 							
-							<?php foreach ($bookings as $row){ ?>
+							<?php /*foreach ($bookings as $row){ ?>
 							
 							
 							
@@ -254,7 +266,7 @@
 								
 							</div>
 						
-							<?php  } ?>
+							<?php  } */ ?>
 				
 					</div>
 						

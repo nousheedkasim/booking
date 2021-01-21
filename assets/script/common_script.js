@@ -158,21 +158,6 @@ if ($("#flash_data").length) {
 
 
 if ($("#reception").length) {
-	
-	
-     $('.datepicker').datepicker({
-		 autoclose: true,
-		container: '#modalForm',
-		
-		 }).css("z-index", 9999);
-		 
-		 
-		 $('#datepicker2').datepicker({
-    autoclose: true,
-    container: '#myModalWithDatePicker',
-    format: 'yyyy-mm-dd'
-});
-
 
     //Toggle Full screen
     $('html').addClass('sidebar-left-collapsed');
@@ -478,13 +463,167 @@ if ($("#reception").length) {
 	}, function() {
 		$(this).removeClass('hover').find("button").remove();
 	});
+	
+	
+	// ** nsk-21/01/21//
+	$("#booking_list_date").datepicker()
+    .on('hide', function(e) {
+		var date=$(this).val();
+		
+		var clinc_data =$("#booking_list_clinic").select2('data');
+		var clinic  =clinc_data[0].id;
+		var doctor=$("#booking_list_doctor").val();
+		var patient=$("#booking_list_patient").val();
+		getBookinList(clinic,date,doctor,patient);
+        // `e` here contains the extra attributes
+    });
+	
+	$("#booking_list_clinic").select2({
+				minimumResultsForSearch: Infinity
+	}).on('select2:select',function(){
+		var date=$("#booking_list_date").val();
+		var clinc_data =$("#booking_list_clinic").select2('data');
+		var clinic  =clinc_data[0].id;
+		var doctor=$("#booking_list_doctor").val();
+		var patient=$("#booking_list_patient").val();
+		
+		
+			
+			
+		$("#booking_list_doctor").select2({
+			ajax:{
+			url:'registration/get_doctor/'+clinic+'/',
+			data:function(params){
+				var query={
+					search:params.term,
+					
+				}
+				return query;
+			},
+			dataType:'json'
+		}
+			
+		}).on('select2:select',function(){
+			
+			var date=$("#booking_list_date").val();
+			var clinc_data =$("#booking_list_clinic").select2('data');
+			var clinic  =clinc_data[0].id;
+			var doctor=$("#booking_list_doctor").val();
+			var patient=$("#booking_list_patient").val();
+			getBookinList(clinic,date,doctor,patient);
+			console.log(clinic);
+		});
+				
+		getBookinList(clinic,date,doctor,patient);
+	});
  
-	 function slot_action(){
-		 console.log(1111);
-	 };
  
+	
+	
+	$("#booking_list_patient").select2({ 
+				ajax:{
+					url:'Patient/get_patient',
+					data:function(params){
+						var query={
+							search:params.term,
+							
+						}
+						return query;
+					},
+					dataType:'json'
+				},
+				minimumInputLength	: 1,
+				tags:true
+	}).on('select2:select',function(){
+		var patient=$("#booking_list_patient").val();
+		if(Math.floor(patient)==patient && $.isNumeric(patient)){
+					
+			var date=$("#booking_list_date").val();
+			var clinc_data =$("#booking_list_clinic").select2('data');
+			var clinic  =clinc_data[0].id;
+			var doctor=$("#booking_list_doctor").val();
+			getBookinList(clinic,date,doctor,patient);
+					
+		}	
+				
+	});
+	
+	
+	
  
+	
+	
+	$(document).ready(function(){
+		
+		var date=$("#booking_list_date").val();
+		var clinc_data =$("#booking_list_clinic").select2('data');
+		var clinic  =clinc_data[0].id;
+		var doctor=$("#booking_list_doctor").val();
+		var patient=$("#booking_list_patient").val();
+		getBookinList(clinic,date,doctor,patient);
+		
+	});
  
+	function getBookinList(clinic='0',date,doctor='0',patient='0'){
+		
+		$.ajax({
+				
+			type: "GET",
+			url: "booking/bookingList/"+clinic+"/"+dateFormat(date,'Y-m-d')+"/"+doctor+"/"+patient+"/",
+			success: function(response){
+				
+				$("#booking_list_div").empty();
+					var json = $.parseJSON(response);
+					var booking_list = '';
+					if(json.status==1){
+					
+						
+						
+							$.each(json.data, function(key,value){
+							
+								
+								 
+								booking_list=booking_list+'<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;" id="booking_list_div">'+
+															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">'+
+																'<span>'+value.booking_time+'</span>'+
+															'</div>'+
+															'<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >'+
+																'<span> '+value.booking_date+'</span>'+
+															'</div>'+
+															'<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">'+
+																'<span> '+value.patient_name+'</span>'+
+															'</div>'+
+															'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">'+
+																'<span> '+value.doctor_name+'</span>'+
+															'</div>'+
+															'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">'+
+																'<span> '+value.diagnose_name+'</span>'+
+															'</div>'+
+															'<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">'+
+																'<span> Active</span>'+
+															'</div>'+
+															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
+																'<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>'+
+															'</div>'+
+															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
+																'<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-trash-o"></i></button>'+
+															'</div>'+
+														'</div>';
+								 
+							});
+						
+					}
+					else{
+						booking_list=booking_list+'<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;" id="booking_list_div">No Record Found!</div>';
+						//slot= [];
+					}
+					$("#booking_list_div").append(booking_list);
+						 console.log(booking_list);
+			}				
+				
+		});
+	}
+ // nsk-21/01/21 **//
 		
 }
 
@@ -560,6 +699,62 @@ if ($("#reception").length) {
 		}
 		return ret;
 	}
+	
+	function dateFormat(date,format){
+			
+				if(date.includes('-')){
+					
+					date_array=date.split('-');
+				}
+				else if(date.search('/')){
+					
+					date_array=date.split('/');
+				}
+			
+			if(format=="Y-m-d"){
+				
+				if(date_array[0].length==4){
+					
+					return_date=date_array[0]+'-'+date_array[1]+'-'+date_array[2];
+				}
+				else if(date_array[0].length==2){
+					
+					return_date=date_array[2]+'-'+date_array[1]+'-'+date_array[0];
+				}
+			}
+			
+			else if(format=="d-m-Y")
+			{
+				
+				if(date_array[0].length==4){
+					return_date=date_array[2]+'-'+date_array[1]+'-'+date_array[0];
+				}
+				else if(date_array[0].length==2){
+					return_date=date_array[0]+'-'+date_array[1]+'-'+date_array[2];
+				}
+			}
+			else if($format=="Y/m/d")
+			{
+				
+				if(date_array[0].length==4){
+					return_date=date_array[0]+'-'+date_array[1]+'-'+date_array[2];
+				}
+				else if(date_array[0].length==2){
+					return_date=date_array[2]+'-'+date_array[1]+'-'+date_array[0];
+				}
+			}
+			else if($format=="d/m/Y")
+			{
+				
+				if(date_array[0].length==4){
+					return_date=date_array[2]+'-'+date_array[1]+'-'+date_array[0];
+				}
+				else if(date_array[0].length==2){
+					return_date=date_array[0]+'-'+date_array[1]+'-'+date_array[2];
+				}
+			}
+			return return_date;
+		}
 
 	function validateDateFormt(date){
 			
