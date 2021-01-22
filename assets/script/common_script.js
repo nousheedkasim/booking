@@ -1,6 +1,12 @@
  var decimal_digits = $("#decimal_digits").val();
  var base_url = $("#base_url").val();
 //Form submission
+   
+$(document).ready(function(){
+ // $("#myBtn").click(function(){
+   // $("#myModal").modal();
+ // });
+});
 //$("#submit,.submit,[type=submit]").click(function(e){
 $("form").submit(function(e) {
 
@@ -335,7 +341,7 @@ if ($("#reception").length) {
 				//console.log(clinic);
 				//console.log(doctor);
 				//console.log(booking_date);
-				slot(diagnose,clinic,doctor,booking_date);
+				slot('picker',diagnose,clinic,doctor,booking_date);
 				$("#booking_btn").removeAttr("disabled");
 				$("#booking_btn").focus();
 			}
@@ -348,11 +354,11 @@ if ($("#reception").length) {
  
  
  
-		function  slot(diagnose,clinic,doctor,booking_date){
+		function  slot(element_dom,diagnose,clinic,doctor,booking_date){
 	 
 		
-		 
-          $('#picker').markyourcalendar({
+		 if(element_dom=='picker'){
+          $("#picker").markyourcalendar({
             availability:arry_response(diagnose,clinic,doctor,booking_date),
 			
 			
@@ -381,6 +387,38 @@ if ($("#reception").length) {
               //instance.setAvailability(arr[rn]);
             }*/
           });
+		 }
+		 else{
+			  $("#picker_edit").markyourcalendar({
+            availability:arry_response(diagnose,clinic,doctor,booking_date),
+			
+			
+            isMultiple: false,
+            onClick: function(ev, data) {
+              // data is a list of datetimes
+             
+              var html = '';
+              $.each(data, function() {
+                var d = this.split(' ')[0];
+                var t = this.split(' ')[1];
+                html +=  t ;
+              });
+              $('#booking_time_edit').val(html);
+            },
+           /* onClickNavigator: function(ev, instance) {
+			alert(tttt);
+              var arr = [
+                [
+                  ['4:00', '5:00', '6:00', '7:00', '8:00']
+                ]
+              ]
+              var rn = Math.floor(Math.random() * 10) % 7;
+			  console.log(rn);
+			  instance.setAvailability(arr[0]);
+              //instance.setAvailability(arr[rn]);
+            }*/
+          });
+		 }
         };
  
 	 
@@ -600,13 +638,13 @@ if ($("#reception").length) {
 																'<span> '+value.diagnose_name+'</span>'+
 															'</div>'+
 															'<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">'+
-																'<span> Active</span>'+
+																'<span> '+value.status_template+'</span>'+
 															'</div>'+
 															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
-																'<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-pencil"></i></button>'+
+																'<button type="button"  onClick="editBooking('+value.booking_id+')" class="btn btn-sm bg-hash "><i class="fa fa-pencil"></i></button>'+
 															'</div>'+
 															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
-																'<button type="button" class="btn btn-sm bg-hash btn-circle"><i class="fa fa-trash-o"></i></button>'+
+																'<button type="button"  onClick="deleteBooking('+value.booking_id+')" class="btn btn-sm bg-hash"><i class="fa fa-trash-o"></i></button>'+
 															'</div>'+
 														'</div>';
 								 
@@ -623,7 +661,120 @@ if ($("#reception").length) {
 				
 		});
 	}
- // nsk-21/01/21 **//
+	
+	
+	function deleteBooking(booking_id){
+	
+		if (confirm("Are you sure?")) {
+			
+			$.ajax({
+				type: "POST",
+				url: "booking/deleteBooking",
+				data: {booking_id:booking_id},
+				success: function(response){
+					var json = $.parseJSON(response);
+					if(json.status==1){
+						var date=$("#booking_list_date").val();
+						var clinc_data =$("#booking_list_clinic").select2('data');
+						var clinic  =clinc_data[0].id;
+						var doctor=$("#booking_list_doctor").val();
+						var patient=$("#booking_list_patient").val();
+						getBookinList(clinic,date,doctor,patient);
+						new PNotify({
+							title: 'Success',
+							text: json.message,
+							type: 'success'
+						});
+					}
+					else{
+						new PNotify({
+							title: 'Error',
+							text: json.message,
+							type: 'error'
+						});
+					}
+				}				
+					
+			});
+		}
+		return false;
+
+	}
+	
+	
+	function editBooking(booking_id){
+		
+		$("#myModal").modal(); 
+		$.ajax({
+			type: "POST",
+			url: "booking/getBookingDetail",
+			data: {booking_id:booking_id},
+			success: function(response){
+				var json = $.parseJSON(response);
+				$("#booking_edit_id").val(json.data.booking_id);
+				$("#booking_diagnose_edit").val(json.data.booking_diagnosis);
+				$("#booking_clinic_edit").val(json.data.booking_clinic);
+				var newOption = new Option(json.data.doctor_name, json.data.booking_doctor, false, false);
+				$('#booking_doctor_edit').empty();
+				$('#booking_doctor_edit').append(newOption).trigger('change').select2({
+					ajax:{
+						url:'registration/get_doctor/'+json.data.booking_clinic+'/',
+						data:function(params){
+							var query={
+								search:params.term,
+								
+							}
+							return query;
+						},
+						dataType:'json'
+					}
+				});
+				
+				$("#booking_date_edit").val(json.data.booking_date);
+				$("#booking_time_edit").val(json.data.booking_time);
+				$("#booking_status_edit").val(json.data.booking_status);
+				
+				$("#booking_time_edit").dblclick(function(){
+					
+					var booking_date	= $("#booking_date_edit").val();
+					var doctor_data 	= $("#booking_doctor_edit").select2('data');
+					var doctor  		= doctor_data[0].id;
+					slot('picker_edit',json.data.booking_diagnosis,json.data.booking_clinic,doctor,booking_date);
+					
+				 });
+				
+			}	
+		});
+	}
+ 
+	 $("#booking_update").click(function(){
+				if(!$(".myc-available-time").hasClass("selected")){
+					alert("Invalid slot");
+				}
+				else{
+					var form_data=$("#booking_edit_form").serialize();
+					var date=dateFormat($("#booking_date_edit").val(),'Y-m-d');
+					 $.ajax({
+						type: "POST",
+						url: "booking/patientBookingUpdate",
+						data: form_data+'&&booking_date='+date,
+						success: function(response){
+							
+							//var json =JSON.parse(response);
+							
+							//if(json.status==1){
+								location.reload();
+							//}
+							
+						}				
+						
+					});
+					
+				}
+		});
+		
+	
+ // nsk01/21 **//
 		
 }
 

@@ -28,6 +28,104 @@
 </style>
 	
 	<link rel="stylesheet" type="text/css" href="assets/vendor/time-schedule/css/mark-your-calendar.css">
+	
+		<div class="container">
+		  <!-- Trigger the modal with a button -->
+		  <!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title">Booking Edit</h4>
+				</div>
+				<form id="booking_edit_form" class="form-horizontal mb-lg" novalidate="novalidate">
+					<div class="panel-body">
+						<input type="hidden" id="booking_edit_id" name="booking_id" value="">
+						<div class="form-group mb-none">
+							<label class="col-sm-3 control-label">Diagnose</label>
+							<div class="col-sm-9">
+								<select id="booking_diagnose_edit" name="diagnosis_id" data-plugin-select class="form-control mt-xs" required="">
+												
+												<?php foreach($diagnoses as $row){?>
+												<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
+												<?php } ?>
+								</select>
+							</div>	
+						</div>
+						<div class="form-group mb-none">
+							<label class="col-sm-3 control-label">Clinic</label>
+							<div class="col-sm-9">
+								<select id="booking_clinic_edit" name="clinic_id" data-plugin-select class="form-control mt-xs" required="">
+											
+											<?php foreach($clinics as $row){ ?>
+											<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
+											<?php
+											} ?>
+										</select>
+							</div>	
+						</div>
+						
+						<div class="form-group mb-none mt-xs">
+							<label class="col-sm-3 control-label">Doctor</label>
+							<div class="col-sm-9">
+								<select id="booking_doctor_edit" name="doctor_id" class="form-control mt-xs" required="">
+											
+										</select>
+							</div>	
+						</div>
+						
+						<div class="form-group mb-none">
+							<label class="col-sm-3 control-label">Status</label>
+							<div class="col-sm-9">
+								<select id="booking_status_edit" name="booking_status_edit"  class="form-control mt-xs" required="">
+												
+												<?php foreach($status as $row){?>
+												<option value="<?php echo $row->id; ?>"> <?php echo $row->value;?></option>
+												<?php } ?>
+								</select>
+							</div>	
+						</div>
+						
+						<div class="form-group mb-none">
+							<label class="col-sm-3 control-label">Date</label>
+							<div class="col-sm-9">
+								<input type="text" data-plugin-datepicker=""  class="form-control mt-xs" id="booking_date_edit">
+							</div>	
+						</div>
+						
+						<div class="form-group mb-none">
+							<label class="col-sm-3 control-label">Time</label>
+							<div class="col-sm-9">
+								<input type="text"  name="actual_time" class="form-control mt-xs" id="booking_time_edit">
+							</div>	
+						</div>
+						
+						<div class="container1 mt-xs">
+										<div id="picker_edit"></div>
+										
+									 </div>
+						
+						
+						
+					</div>
+					<footer class="panel-footer">
+						<div class="row">
+							<div class="col-md-12 text-right">
+								<button class="btn btn-primary modal-confirm" id="booking_update">Update</button>
+								 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							</div>
+						</div>
+					</footer>
+				</form>
+			  </div>
+			  
+			</div>
+		  </div>
+		  
+		</div>
     
 		<section role="main" class="content-body" id="reception">
 			

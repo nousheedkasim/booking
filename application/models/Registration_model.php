@@ -690,7 +690,7 @@
 				$string 	= "SELECT doctor_id as id, doctor_name as text 
 							FROM tbl_doctor
 							INNER JOIN tbl_doctor_clinic ON doctor_id=doctor_clinic_doctor
-							WHERE doctor_name LIKE '%$term%' AND doctor_clinic_clinic=$clinic AND doctor_clinic_status=1";
+							WHERE doctor_name LIKE '%$term%' AND doctor_clinic_clinic=$clinic AND doctor_clinic_status=1 GROUP BY doctor_id";
 				$query  	= $this->db->query($string);
 				$result 	= $query->result();
 				return		  $result;

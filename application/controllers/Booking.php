@@ -68,7 +68,58 @@ class Booking extends MY_Controller {
 		}
 		echo json_encode($json);
 	}
-	
 	// nsk-21/01/21 **//
+	
+	// **nsk-22/01/21 //
+	public function deleteBooking(){
+		$this->load->model('Booking_model');
+		$this->form_validation->set_rules('booking_id', 'Booking Id', 'required');
+		if ($this->form_validation->run() == true) {
+			
+			$booking_id		= $this->input->post('booking_id');
+			$response		= $this->Booking_model->deleteBooking($booking_id);
+			
+			if($response['status']==1){
+		        $json=array('status'=>'1','message'=>'Delete Success');
+    		}
+    		else{
+    		    $json=array('status'=>'0','message'=>'Delete Failed');
+    		}
+		}
+		else{
+			$json			= array('status'=>'0','message'=>$this->form_validation->error_array());
+		}
+		echo json_encode($json);
+		
+	}
+	
+	public function getBookingDetail(){
+		$this->load->model('Booking_model');
+		$this->form_validation->set_rules('booking_id', 'Booking Id', 'required');
+		
+		if ($this->form_validation->run() == true) {
+			
+			$booking_id	= $this->input->post('booking_id');
+			$data		= $this->Booking_model->getBookingDetail($booking_id);
+			
+			if(!empty($data)){
+		        $json=array('status'=>'1','data'=>$data);
+    		}
+    		else{
+    		    $json=array('status'=>'0');
+    		}
+		}
+		else{
+			$json			= array('status'=>'0','message'=>$this->form_validation->error_array());
+		}
+		echo json_encode($json);
+	}
+	
+	public function patientBookingUpdate(){
+		$this->load->model('Booking_model');
+		$this->Booking_model->patient_booking_update();
+	}
+	// nsk-22/01/22 **//
+	
 	
 }
