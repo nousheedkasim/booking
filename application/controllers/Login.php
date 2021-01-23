@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 
 		if ($this->form_validation->run() == true) {
 		
-			$response	= $this->Login_model->login_action();
+			$response	= $this->Login_model->login_action(1);
 			if($response['status']=200){
 				
 				$this->session->set_userdata('user_id',$response['user_id']);

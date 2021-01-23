@@ -44,26 +44,27 @@
 			
 		}
 		
-		public function login_log($response,$status){
+		public function login_log($platform=0,$response,$log_status){
 			
 			$login_deatails	= array(
 								'login_user'		=> $response['user_id'],
 								'login_device_id'	=> $this->input->post('device_id'),
 								'login_device_name'	=> $this->input->post('device_name'),
-								'login_svn_token'	=> $this->input->post('svn_token'),
+								'login_fcm_token'	=> $this->input->post('fcm_token'),
+								'login_platform'	=> $platform,
 								'login_datetime'	=> date("Y-m-d h:i:s"),
-								'login_status'		=> $status
+								'login_status'		=> $log_status
 								);
 		
 			// Inserting in Table(tbl_user)
 			$this->db->insert('tbl_login_log', $login_deatails);
 			if($this->db->affected_rows()){
-				$return['status']	= 1;
+				return 1;
 			}
 			else{
-				$return['status']	= 0;
+				return 0;
 			}
-			return $return;
+			
 			
 		}
 		
@@ -132,6 +133,17 @@
             return       $query->row()->clinic_id;
 		}
 				
+		
+		public function checkUser($platform=0){
+			
+			$login_id	= $this->input->post('login_id');
+			
+			$string 	= "select user_id,user_type,user_name,user_login_id,user_location,user_email,user_mobile from tbl_user where user_login_id='$login_id'";
+            $query  	= $this->db->query($string);
+            return 		$query->row();
+			 
+			
+		}
 		//nsk 23/01/2021 **//
 		
 

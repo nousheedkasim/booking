@@ -10,7 +10,91 @@ class Login extends CI_Controller {
 	}
 
 
-	public function index(){
+	
+ public function index(){
+		
+		$platform=1;
+		$this->form_validation->set_rules('login_id', 'User Name', 'required');
+		$this->form_validation->set_rules('device_name', 'Device Name', 'required');
+		$this->form_validation->set_rules('device_id', 'Device Id', 'required');
+		$this->form_validation->set_rules('fcm_token', 'Token', 'required');
+		if ($this->form_validation->run() == true) {
+			
+			if($this->input->post('log_type')==1){ //login
+			
+				$response=$this->Login_model->checkUser($platform);
+				if(count($response)==1){
+					
+					$json[]	=array(	'user_id'=>intval($response['user_id']),
+									'user_type'=>$response['user_type'],
+									'name'=>$response['user_name'],
+									'login_id'=>$response['user_login_id'],
+									'location'=>$response['user_location'],
+									'email'=>$response['user_email'],
+									'mobile'=>$response['user_mobile'],
+									'status'=>'1',
+									'message'=>'Login Successfully',
+									'api_status'=>'1',
+									'otp'=>'123'
+								);
+				}
+			
+			}
+			elseif ($this->input->post('log_type')==2){
+				
+				$log_status=1;
+				$response=$this->Login_model->checkUser($platform);
+				if(count($response)==1){
+					
+					$response	= array(	'user_id'=>intval($response['user_id']),
+									'user_type'=>$response['user_type'],
+									'name'=>$response['user_name'],
+									'login_id'=>$response['user_login_id'],
+									'location'=>$response['user_location'],
+									'email'=>$response['user_email'],
+									'mobile'=>$response['user_mobile'],
+									'status'=>'1',
+									'message'=>'Login Successfully',
+									'api_status'=>'1',
+									'otp'=>'123'
+								 );
+					
+					if($this->Login_model->login_log($platform,$response,$log_status)==1){
+						$json[] = $response;
+					}
+					else{
+						$json[]  = array('api_status'=>'0','message'=>"Login Failed!");
+					}
+				}
+				
+			}
+			elseif ($this->input->post('log_type')==0){
+				
+				$log_status	= 0;
+				$response	= $this->Login_model->checkUser($platform);
+				if(count($response)==1){
+					
+					if($this->Login_model->login_log($platfrom,$response,$log_status)==1)
+					{
+						$json[]  = array('user_id'=>$response['user_id'],'user_type'=>$response['user_type'],'api_status'=>'1','message'=>'logout Successfully');
+					}
+					else{
+						$json[]  = array('api_status'=>'0','message'=>"Logout Failed!");
+					}
+				}
+				
+			}
+			
+		}
+		else{
+			$json[]=array('status'=>'0','message'=>$this->form_validation->error_array(),'api_status'=>'1');
+		}
+			
+		echo  json_encode($json);
+
+	}
+
+	public function index1(){
 		
 		
 			
