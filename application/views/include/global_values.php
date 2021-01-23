@@ -8,6 +8,11 @@
 <input type="hidden" id="sr_tax_include" value="<?= SR_TAX_INCLUDE ?>">
 <input type="hidden" id="sr_total_rounding" value="<?= SR_TOTAL_ROUNDING ?>">
 <input type="hidden" id="base_url" value="<?php echo base_url();?>">
+<input type="hidden" id="logged_user_type" value="<?php echo $this->user_data['user_type']; ?>">
+<input type="hidden" id="logged_user_id" value="<?php echo $this->user_data['user_id']; ?>">
+<input type="hidden" id="logged_user_branch" value="<?php echo $this->user_data['user_branch']; ?>">
+
+
 
 
 

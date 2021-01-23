@@ -1403,11 +1403,20 @@ pre code {
  .bt_mg{
 	margin: 0px 0px 0px 0px;
  }
+  .bt_pl_none{
+	padding-left:0px !important;
+ }
+ .bt_pr_none{
+	padding-right:0px !important;
+ }
 }
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
+  .bt_pr_none{
+	padding-right:0px !important;
+ }
 }
 @media (min-width: 1200px) {
   .container {
@@ -1427,6 +1436,7 @@ pre code {
  .bt_mg{
 	margin: 0px -15px 0px -15px !important;
  }
+
 }
 .container-fluid {
   margin-right: auto;

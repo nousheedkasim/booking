@@ -169,6 +169,8 @@ if ($("#reception").length) {
     $('html').addClass('sidebar-left-collapsed');
     $(".sidebar-toggle").addClass("no-click");
 	
+	
+	
 	$("#patient_search").select2({
 		ajax: {
                 url: 'Patient/patient_search',
@@ -504,8 +506,9 @@ if ($("#reception").length) {
 	
 	
 	// ** nsk-21/01/21//
-	$("#booking_list_date").datepicker()
-    .on('hide', function(e) {
+	getDoctor($("#logged_user_branch").val());
+	
+	$("#booking_list_date").datepicker().on('hide', function(e) {
 		var date=$(this).val();
 		
 		var clinc_data =$("#booking_list_clinic").select2('data');
@@ -524,23 +527,26 @@ if ($("#reception").length) {
 		var clinic  =clinc_data[0].id;
 		var doctor=$("#booking_list_doctor").val();
 		var patient=$("#booking_list_patient").val();
-		
-		
 			
-			
+		getDoctor(clinic);
+		
+		getBookinList(clinic,date,doctor,patient);
+	});
+	
+	function getDoctor(clinic){
+	 
 		$("#booking_list_doctor").select2({
 			ajax:{
-			url:'registration/get_doctor/'+clinic+'/',
-			data:function(params){
-				var query={
-					search:params.term,
-					
-				}
-				return query;
-			},
-			dataType:'json'
-		}
-			
+				url:'registration/get_doctor/'+clinic+'/',
+				data:function(params){
+					var query={
+						search:params.term,
+						
+					}
+					return query;
+				},
+				dataType:'json'
+			}
 		}).on('select2:select',function(){
 			
 			var date=$("#booking_list_date").val();
@@ -551,11 +557,7 @@ if ($("#reception").length) {
 			getBookinList(clinic,date,doctor,patient);
 			console.log(clinic);
 		});
-				
-		getBookinList(clinic,date,doctor,patient);
-	});
- 
- 
+	}
 	
 	
 	$("#booking_list_patient").select2({ 
@@ -612,43 +614,59 @@ if ($("#reception").length) {
 				
 				$("#booking_list_div").empty();
 					var json = $.parseJSON(response);
+					
+					$("#appoinment_count").html(json.data.no_appoinment);
+					$("#confirm_count").html(json.data.no_confirm);
+					
 					var booking_list = '';
 					if(json.status==1){
-					
 						
 						
-							$.each(json.data, function(key,value){
+						$.each(json.data.bookings, function(key,value){
 							
+							booking_list=booking_list+'<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;" id="booking_list_div">'+
+							
+								'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 p-none">'+
+									'<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">'+
+										'<span>'+value.booking_time+'</span>'+
+									'</div>'+
+									
+									'<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding: 5px 8px 5px 8px">'+
+										'<span>'+value.booking_date+'</span>'+
+									'</div>'+
+								'</div>'+
 								
-								 
-								booking_list=booking_list+'<div class="panel-body mb-xs pt-xs pb-xs pr-md pl-md" style="box-shadow: 1px 1px 3px 0px;" id="booking_list_div">'+
-															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px;background-color:#e3e3e4; clor:black; border-radius: 12px;">'+
-																'<span>'+value.booking_time+'</span>'+
-															'</div>'+
-															'<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px" >'+
-																'<span> '+value.booking_date+'</span>'+
-															'</div>'+
-															'<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">'+
-																'<span> '+value.patient_name+'</span>'+
-															'</div>'+
-															'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">'+
-																'<span> '+value.doctor_name+'</span>'+
-															'</div>'+
-															'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">'+
-																'<span> '+value.diagnose_name+'</span>'+
-															'</div>'+
-															'<div class="col-sm-2 col-md-2 col-lg-1 col-xl-1" style="padding: 5px 8px 5px 8px">'+
-																'<span> '+value.status_template+'</span>'+
-															'</div>'+
-															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
-																'<button type="button"  onClick="editBooking('+value.booking_id+')" class="btn btn-sm bg-hash "><i class="fa fa-pencil"></i></button>'+
-															'</div>'+
-															'<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1" style="padding: 5px 8px 0px 8px;">'+
-																'<button type="button"  onClick="deleteBooking('+value.booking_id+')" class="btn btn-sm bg-hash"><i class="fa fa-trash-o"></i></button>'+
-															'</div>'+
-														'</div>';
-								 
-							});
+								'<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 8px 5px 8px">'+
+									'<span>'+value.patient_name+'</span>'+
+								'</div>'+
+								
+								
+								'<div class="col-sm-2 col-md-2 col-lg-2 col-xl-3" style="padding: 5px 8px 5px 8px">'+
+									'<span> '+value.doctor_name+'</span>'+
+								'</div>'+
+								
+								'<div class="col-sm-3 col-md-2 col-lg-2 col-xl-2" style="padding: 5px 8px 5px 8px">'+
+									'<span> '+value.diagnose_name+'</span>'+
+								'</div>'+
+								
+								
+								'<div class="col-sm-2 col-md-3 col-lg-3 col-xl-3 p-none">'+
+									'<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4" style="padding: 5px 8px 5px 8px">'+
+										'<span>'+value.status_template+'</span>'+
+									'</div>'+
+									'<div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="padding: 5px 8px 0px 8px;">'+
+										'<button type="button" onclick="editBooking('+value.booking_id+')" class="btn btn-sm bg-hash ">'+
+											'<i class="fa fa-pencil"></i>'+
+										'</button>'+
+									'</div>'+
+									'<div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="padding: 5px 8px 0px 8px;">'+
+										'<button type="button" onclick="deleteBooking('+value.booking_id+')" class="btn btn-sm bg-hash">'+
+											'<i class="fa fa-trash-o"></i>'+
+										'</button>'+
+									'</div>'+
+								'</div>'+
+							'</div>';
+						});
 						
 					}
 					else{

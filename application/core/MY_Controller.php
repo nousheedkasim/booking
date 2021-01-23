@@ -27,7 +27,11 @@ class MY_Controller extends CI_Controller
 				$this->user_data['user_code']	= $login_details->user_code;
 				$this->user_data['user_type']	= $login_details->user_type;
 				$this->user_data['user_branch']	= $login_details->user_branch;
-				
+				//** nsk 23/01/2021//
+				if($this->user_data['user_type']==2){
+					$this->user_data['user_branch']	= $this->Login_model->getClincId($user_id);
+				}
+				//nsk 23/01/2021 **//
 			}
 			else{
 				

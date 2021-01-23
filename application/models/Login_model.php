@@ -120,5 +120,19 @@
         
 		}
 		
+		//** nsk 23/01/2021//
+		//MY_Controller Construct
+				
+		public function getClincId($user_id){
+			
+			$string 	= "SELECT clinic_id
+							FROM tbl_clinic  
+							WHERE clinic_user=$user_id";
+            $query  	= $this->db->query($string);
+            return       $query->row()->clinic_id;
+		}
+				
+		//nsk 23/01/2021 **//
+		
 
     }

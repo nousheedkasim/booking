@@ -761,7 +761,7 @@
 		// ** nsk-21/01/21 //
 		public function bookingList($clinic,$date,$doctor,$patient){
 			
-			$where			= " WHERE  booking_date='2020-12-25'";
+			$where			= " WHERE  booking_date='$date'";
 			
 			if($clinic!=0){
 				$where		.= " AND  booking_clinic=$clinic";
@@ -823,5 +823,28 @@
 			
 			return $booking_deatils;
 		}
-		// nsk-21/01/22 **//
+		// nsk-22/01/21 **//
+		
+		//** nsk 23/01/21//
+		public function appoinmentCount($status=null,$clinic,$date,$doctor,$patient){
+			
+			$this->db->where('booking_date=', $date);
+			
+			if($status!=null){
+				$this->db->where('booking_status=', $status);
+			}
+			if($clinic!=0){
+				$this->db->where('booking_clinic=', $clinic);
+			}
+			if($doctor!=0){
+				$this->db->where('booking_doctor=', $doctor);
+			}
+			if($patient!=0){
+				$this->db->where('booking_patient=', $patient);
+			}
+			$query = $this->db->get('tbl_booking');
+			return $query->num_rows();
+			
+		}
+		//nsk 23/01/21 **//
     }

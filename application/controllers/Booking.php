@@ -53,18 +53,20 @@ class Booking extends MY_Controller {
 	public function bookingList(){
 		
 		$this->load->model('Booking_model');
-		$clinic		= $this->uri->segment(3);
-		$date		= $this->uri->segment(4);
-		$doctor		= $this->uri->segment(5);
-		$patient	= $this->uri->segment(6);
+		$clinic					= $this->uri->segment(3);
+		$date					= $this->uri->segment(4);
+		$doctor					= $this->uri->segment(5);
+		$patient				= $this->uri->segment(6);
 		
-		$data	= $this->Booking_model->bookingList($clinic,$date,$doctor,$patient);
+		$data['bookings']		= $this->Booking_model->bookingList($clinic,$date,$doctor,$patient);
+		$data['no_appoinment']	= $this->Booking_model->appoinmentCount(null,$clinic,$date,$doctor,$patient); //all appoinments
+		$data['no_confirm']		= $this->Booking_model->appoinmentCount(5,$clinic,$date,$doctor,$patient);
 		
-		if(count($data)>0){
+		if(count($data['bookings'])>0){
 			$json=['status'=>1,'data'=>$data];
 		}
 		else{
-			$json=['status'=>0];
+			$json=['status'=>0,'data'=>$data];
 		}
 		echo json_encode($json);
 	}
