@@ -186,7 +186,7 @@ a:active {
 
 	/* Layout Fixed - Inner Wrapper */
 	html.fixed .inner-wrapper {
-		padding-top: 50px;
+		padding-top: 40px;
 	}
 
 	/* Layout Fixed - Content Body */
@@ -1546,7 +1546,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 .sidebar-left .sidebar-header {
 	position: relative;
 	color: #777777;
-	height: 34px;
+	height: 40px;
 }
 
 .sidebar-left .sidebar-header .sidebar-title {
@@ -1561,7 +1561,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	top: 0;
 	right: 0;
 	width: 68px;
-	height: 34px;
+	height: 40px;
 	background-color: #171717;
 	border-radius: 0 0 0 5px;
 	text-align: center;
@@ -5096,7 +5096,8 @@ html.header-dark .notifications > li .notification-icon i {
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
-	left: -11px;
+	/*left: -11px;*/
+	left: -4px;
 	padding: 40px 10px 0;
 	top: -5px;
 	width: 100%;
@@ -5156,7 +5157,8 @@ html.header-dark .notifications > li .notification-icon i {
 	}
 
 	.userbox.open .dropdown-menu {
-		left: -1px;
+		/*left: -1px;*/
+		left: -17px;
 		padding: 35px 0 0 0;
 	}
 }
@@ -12649,6 +12651,7 @@ html.dark .table .actions-hover a {
 
 .dataTables_wrapper .datatables-header {
 	margin-bottom: 15px;
+margin-top: 10px;
 }
 
 .dataTables_wrapper .datatables-header label {
