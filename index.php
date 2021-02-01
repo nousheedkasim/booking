@@ -67,7 +67,7 @@
 	define('SR_TAX_INCLUDE',true); //Service Tax include with total amount
 	define('SR_TOTAL_ROUNDING',true); //Service Total Rounding with given Round Amound
 	define('SR_INVOICE_START',1); //Service Total Rounding with given Round Amound
-	define('SLOT_MINIMUM_DURATION',5.00); //Service Total Rounding with given Round Amound
+	define('SLOT_MINIMUM_DURATION',5.00); //Base Duration
  //End User  Defined Values
  
 /*

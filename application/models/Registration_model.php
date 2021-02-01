@@ -10,51 +10,34 @@
 
 				//Registration->clinic_insert || api/Registration->clinic_insert
 				public function clinic_insert(){
-			
-					$this->form_validation->set_rules('name', 'Name', "required");
-					$this->form_validation->set_rules('location', 'Location', "required");
-					$this->form_validation->set_rules('phone', 'Phone', "required");
-					$this->form_validation->set_rules('email', 'Email', "required");
-					$this->form_validation->set_rules('working_from', 'Working From', "required");
-					$this->form_validation->set_rules('working_to', 'Working To', "required");
-			
-								//Chech Validation
-							if ($this->form_validation->run() == true) {
-								//Setting values for tabel columns
-								$clinic_deatails	= array('clinic_name'	    		=> $this->input->post('name'),
-															'clinic_location'			=> $this->input->post('location'),
-															'clinic_phone'				=> $this->input->post('phone'),
-															'clinic_email'				=> $this->input->post('email'),
-															'clinic_working_from'		=> $this->input->post('working_from'),
-															'clinic_working_to'			=> $this->input->post('working_to'),
-															);
+					
+					//Setting values for tabel columns
+					$clinic_deatails	= array('clinic_name'	    		=> $this->input->post('name'),
+												'clinic_location'			=> $this->input->post('location'),
+												'clinic_phone'				=> $this->input->post('phone'),
+												'clinic_email'				=> $this->input->post('email'),
+												'clinic_working_from'		=> $this->input->post('working_from'),
+												'clinic_working_to'			=> $this->input->post('working_to'),
+												);
+					
+					// Inserting in Table(tbl_user) 
+					$this->db->insert('tbl_clinic', $clinic_deatails);
+					if($this->db->affected_rows()){
 						
-								// Inserting in Table(tbl_user) 
-								$this->db->insert('tbl_clinic', $clinic_deatails);
-								if($this->db->affected_rows()){
-									
-									$this->session->set_flashdata('success', 'Successfully Created Clinic');
-									$this->output->set_status_header('200');
-									echo json_encode(array('status'=>'200','message'=>'Successfully Created Clinic','api_status'=>'1'));
-								}
-								else{
-									$this->output->set_status_header('500');
-									echo json_encode(array('status'=>'200','message'=>'Database Problem Occurred!','api_status'=>'0'));	
-								}
-							
-							}
-							else{
-								
-								$this->output->set_status_header('400');
-								echo json_encode(array('status'=>'400','message'=>$this->form_validation->error_array(),'api_status'=>'0'));
-								
-							}
+						$this->session->set_flashdata('success', 'Successfully Created Clinic');
+						$this->output->set_status_header('200');
+						echo json_encode(array('status'=>'200','message'=>'Successfully Created Clinic','api_status'=>'1'));
+					}
+					else{
+						$this->output->set_status_header('500');
+						echo json_encode(array('status'=>'200','message'=>'Database Problem Occurred!','api_status'=>'0'));	
+					}	
 									
 				}
 				
 				public function clinic_list_json(){
 					//Array of database columns which should be read and sent back to DataTables//
-					$aColumns = array( 'sl', 'name', 'location', 'email', 'phone', 'from','to','status','action');
+					$aColumns = array( 'sl', 'name', 'location', 'email', 'phone','status','action');
 					
 					//Array of database search columns//
 					$sColumns = array('clinic_name','clinic_phone','clinic_email');
@@ -128,7 +111,7 @@
 			
 					//SQL queries//
 					$sQuery			= "SELECT SQL_CALC_FOUND_ROWS clinic_id as sl,clinic_name as name,clinic_location as location,
-									clinic_email as email,clinic_phone as phone,clinic_working_from as from,clinic_working_to as to,clinic_working_status as status,clinic_id as id
+									clinic_email as email,clinic_phone as phone,clinic_status as status,clinic_id as id
 									FROM   $sTable
 									$sWhere
 									$sOrder

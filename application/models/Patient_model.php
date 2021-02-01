@@ -74,6 +74,7 @@
             $result = $query->row();
             return   $result;
 		}
+		
 		public function patient_booking_details(){
 			
 			$patient_id=$this->input->get_post('patient_id');

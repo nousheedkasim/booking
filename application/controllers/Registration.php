@@ -18,7 +18,59 @@ class Registration extends MY_Controller {
 	public function clinic_insert()
 	{
 		
-		$this->Registration_model->clinic_insert();
+		
+		$this->form_validation->set_rules('clinic_name', 'Clinic Name', "required");
+		$this->form_validation->set_rules('login_id', 'Login Id', "required|is_unique[tbl_user.user_login_id]",array(
+                'required'      => 'You have not provided %s.',
+                'is_unique'     => 'This %s already exists.'
+        ));
+		$this->form_validation->set_rules('password', 'Password', "required");
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', "required|matches[password]");
+		$this->form_validation->set_rules('location', 'Location', "required");
+		$this->form_validation->set_rules('phone', 'Phone', "required");
+		$this->form_validation->set_rules('email', 'Email', "required");
+		
+		if($this->input->post('sunday')){
+			$this->form_validation->set_rules('sunday_from', 'From', "required");
+			$this->form_validation->set_rules('sunday_to', 'To', "required");
+		}
+		if($this->input->post('monday')){
+			$this->form_validation->set_rules('monday_from', 'From', "required");
+			$this->form_validation->set_rules('monday_to', 'To', "required");
+		}
+		if($this->input->post('tuesday')){
+			$this->form_validation->set_rules('tuesday_from', 'From', "required");
+			$this->form_validation->set_rules('tuesday_to', 'To', "required");
+		}
+		if($this->input->post('wednesday')){
+			$this->form_validation->set_rules('wednesday_from', 'From', "required");
+			$this->form_validation->set_rules('wednesday_to', 'To', "required");
+		}
+		if($this->input->post('thursday')){
+			$this->form_validation->set_rules('thursday_from', 'From', "required");
+			$this->form_validation->set_rules('thursday_to', 'To', "required");
+		}
+		if($this->input->post('friday')){
+			$this->form_validation->set_rules('friday_from', 'From', "required");
+			$this->form_validation->set_rules('friday_to', 'To', "required");
+		}
+		if($this->input->post('saturday')){
+			$this->form_validation->set_rules('saturday_from', 'From', "required");
+			$this->form_validation->set_rules('saturday_to', 'To', "required");
+		}
+		
+		if ($this->form_validation->run() == true) {
+			
+			$this->Registration_model->clinic_insert();
+		}
+		else{
+			
+			$this->output->set_status_header('400');
+			echo json_encode(array('status'=>'400','message'=>$this->form_validation->error_array(),'api_status'=>'0'));
+								
+		}
+		
+		
 	}
 	public function clinic_list(){
 		

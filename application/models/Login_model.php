@@ -14,7 +14,7 @@
         {
 			$login_id	= $this->input->post('login_id');
 			$password	= md5($this->input->post('password'));
-			$string 	= "select user_id,user_type from tbl_user where user_name='$login_id' and user_password='$password'";
+			$string 	= "select user_id,user_type,user_name,user_login_id,user_location,user_email,user_mobile from tbl_user where user_login_id='$login_id' and user_password='$password'";
             $query  	= $this->db->query($string);
             $row 		= $query->row();
 			
@@ -25,6 +25,11 @@
 				$return['user_id']		=  $row->user_id;
 				$return['user_type']	=  $row->user_type;
 				$return['message']		= 'Login Succesfully';
+				$return['user_name']		= $row->user_name;
+				$return['user_login_id']		= $row->user_login_id;
+				$return['user_location']		= $row->user_location;
+				$return['user_email']		= $row->user_email;
+				$return['user_mobile']		= $row->user_mobile;
 			}
 			else{
 				$return['status']		= 0;
@@ -65,6 +70,29 @@
 				return 0;
 			}
 			
+			
+		}
+		
+		public function login_log1($response,$status){
+			
+			$login_deatails	= array(
+								'login_user'		=> $response['user_id'],
+								'login_device_id'	=> $this->input->post('device_id'),
+								'login_device_name'	=> $this->input->post('device_name'),
+								'login_fcm_token'	=> $this->input->post('fcm_token'),
+								'login_datetime'	=> date("Y-m-d h:i:s"),
+								'login_status'		=> $status
+								);
+		
+			// Inserting in Table(tbl_user)
+			$this->db->insert('tbl_login_log', $login_deatails);
+			if($this->db->affected_rows()){
+				$return['status']	= 1;
+			}
+			else{
+				$return['status']	= 0;
+			}
+			return $return;
 			
 		}
 		
@@ -120,8 +148,9 @@
 			}
         
 		}
-		
-		//** nsk 23/01/2021//
+
+
+//** nsk 23/01/2021//
 		//MY_Controller Construct
 				
 		public function getClincId($user_id){
@@ -133,6 +162,7 @@
             return       $query->row()->clinic_id;
 		}
 				
+		//nsk 23/01/2021 **//
 		
 		public function checkUser($platform=0){
 			
@@ -140,11 +170,10 @@
 			
 			$string 	= "select user_id,user_type,user_name,user_login_id,user_location,user_email,user_mobile from tbl_user where user_login_id='$login_id'";
             $query  	= $this->db->query($string);
-            return 		$query->row();
+            return 		$query->row_array();
 			 
 			
 		}
-		//nsk 23/01/2021 **//
 		
 
     }

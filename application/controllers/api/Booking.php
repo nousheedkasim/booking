@@ -61,32 +61,21 @@ class Booking extends CI_Controller {
 		echo json_encode($json);
 	}
 	
-	public function booking_slot1(){
-		$this->load->model('Booking_model');
-	    $data=$this->Booking_model->booking_slot();
-		
-		/*if(count($data)>0){
-		    $json[]=array('api_status'=>'1','slot_data'=>$data);
-		}
-		else{
-		    $json[]=array('api_status'=>'0');
-		}
-		echo json_encode($json);*/
-	}
+	
 	public function booking_slot(){
 		$this->load->model('Booking_model');
 	    $data=$this->Booking_model->booking_slot();
 		
-		if(count($data)>0){
+		//if(count($data)>0){
 		    $json[]=array('api_status'=>'1','slot_data'=>$data);
-		}
-		else{
-		    $json[]=array('api_status'=>'0');
-		}
+		//}
+		//else{
+		   // $json[]=array('api_status'=>'0');
+		//}
 		echo json_encode($json);
 	}
 	
-		public function doctor_booking_slot(){
+	public function doctor_booking_slot(){
 		$this->load->model('Booking_model');
 	    $data=$this->Booking_model->doctor_booking_slot();
 		
@@ -101,7 +90,7 @@ class Booking extends CI_Controller {
 	}
 	
 	
-		public function block_booking_slot(){
+	public function block_booking_slot(){
 		$this->load->model('Booking_model');
 	    $data=$this->Booking_model->booking_slot();
 		
@@ -125,12 +114,15 @@ class Booking extends CI_Controller {
 		if($response['status']==1){
 		    
 		    $fcm_key=$this->Common_model->get_fcm_tocken($this->input->post('doctor_id'),2);
-		    $data= array(
-                            'message' => "You have a new appoinment from  ".$this->input->post('patient_name').' on '.date("d-m-Y", strtotime($this->input->post('booking_date'))).' at '.date('h:i a', strtotime($this->input->post('actual_time'))),
-                            'title' => "booking",
-                            'sender' => "reg",
-                        );
-		    $this->appPushNotification($fcm_key, $data);
+		    
+		    if( $fcm_key){
+    		    $data= array(
+                                'message' => "You have a new appoinment from  ".$this->input->post('patient_name').' on '.date("d-m-Y", strtotime($this->input->post('booking_date'))).' at '.date('h:i a', strtotime($this->input->post('actual_time'))),
+                                'title' => "booking",
+                                'sender' => "reg",
+                            );
+    		    $this->appPushNotification($fcm_key->login_fcm_token, $data);
+		    }
 		    
 		    $json[]=array('api_status'=>$response['status'],'tocken'=>$response['tocken'],'message'=>'Succes');
 		}
@@ -350,6 +342,22 @@ class Booking extends CI_Controller {
 		$this->load->model('Booking_model');
 		$data=$this->Booking_model->patient_booking();
 		print_r($data);
+	}
+	
+	public function patientUpdate(){
+	    
+	    
+		$this->load->model('Booking_model');
+		
+	    $response=$this->Booking_model->patientUpdate();
+		
+		if($response['status']==1){
+		    $json[]=array('api_status'=>$response['status'],'message'=>'Succesfully upadated');
+		}
+		else{
+		   $json[]=array('api_status'=>'0','message'=>'Unsuccessfully Updated');
+		}
+		echo json_encode($json);
 	}
 
 	

@@ -1421,15 +1421,16 @@ html.fixed .visible-xl-inline-block {
 .header {
 	background-color: #f6f6f6;
 	background-image: -webkit-linear-gradient(#f6f6f6 0%, white 45%);
-	background-image: linear-gradient(#f6f6f6 0%, white 45%);
+	/*background-image: linear-gradient(#f6f6f6 0%, white 45%);*/
+	background-image: linear-gradient(#1d2127 0%, #1d2127 45%);
 	/*border-bottom: 1px solid #E9E9E6;
 	border-top: 3px solid #EDEDED;*/
 	z-index: 1000;
 }
 
 .header .logo {
-	float: left;
-	margin: 0 0 0 15px;
+	/*float: left;
+	margin: 0 0 0 15px;*/
 }
 
 .header .logo img {
@@ -5056,7 +5057,7 @@ html.header-dark .notifications > li .notification-icon i {
 }
 
 .userbox .name {
-	color: #000011;
+	color: #e1e1e1;
 	font-size: 13px;
 	font-size: 1.3rem;
 	line-height: 1.2em;
@@ -5070,7 +5071,7 @@ html.header-dark .notifications > li .notification-icon i {
 }
 
 .userbox .custom-caret {
-	color: #000011;
+	color: #e1e1e1;
 	font-size: 16px;
 	font-weight: bold;
 }
@@ -12648,8 +12649,6 @@ html.dark .table .actions-hover a {
 
 .dataTables_wrapper .datatables-header {
 	margin-bottom: 15px;
-	/* new */
-	padding: 0 35px 0 32px;
 }
 
 .dataTables_wrapper .datatables-header label {

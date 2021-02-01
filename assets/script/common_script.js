@@ -2,93 +2,8 @@
  var base_url = $("#base_url").val();
 //Form submission
    
-$(document).ready(function(){
- // $("#myBtn").click(function(){
-   // $("#myModal").modal();
- // });
-});
-//$("#submit,.submit,[type=submit]").click(function(e){
-$("form").submit(function(e) {
-
-    e.preventDefault();
-    //var form =$(this).closest("form");// serializes the form's elements.
-    var form = $(this);
-    $.ajax({
-        type: "POST",
-        url: form.attr("action"),
-        data: form.serialize(),
-        statusCode: {
-
-            200: function(response) {
-                var json = $.parseJSON(response);
-                window.location.href = json.redirect;
-
-            },
-            400: function(response) {
-
-                $("#submit").attr("disabled", true);
-                var json = $.parseJSON(response.responseText);
-
-                if (json.error_type == 'badge') {
-
-                    var error_text = '';
-                    $.each(json.message, function(element, value) {
-
-                        $("#" + element).addClass('error_input');
-
-                        $(this).closest("[type=submit]").attr("disabled", true);
-                        error_text += value + '<br>';
-                    });
-                    new PNotify({
-                        title: 'Error',
-                        text: error_text,
-                        type: 'error'
-                    });
-
-                } else {
-                    $.each(json.message, function(element, value) {
-
-                        if ((form).hasClass('multi-column')) {
-
-                            $("#" + element).addClass('error_input').parent().prepend("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
-
-                        } else {
-                            $("#" + element).addClass('error_input').parent().append("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
-
-                        }
-                        //$("[for="+element+"]").parent().addClass('has-error');
-                        //$("#"+element).closest('.form-group').addClass('has-error');
-
-                    })
-                }
-            },
-            500: function() {
-
-                $("#submit").attr("disabled", true);
-                new PNotify({
-                    title: 'Error',
-                    text: 'Database Problem Occurred!',
-                    type: 'error'
-                });
-            }
-
-        }
-
-    });
-});
-//End Form Submission
 
 
-//Form Rest
-$("#reset").click(function() {
-    $("#submit").attr("disabled", false);
-    $(".error_input").removeClass('error_input');
-    //$(this).closest("form").
-    $(".error").remove();
-    $(".ui-pnotify").remove();
-
-});
-//End Form Reset
 
 //Datatable
 
@@ -164,12 +79,6 @@ if ($("#flash_data").length) {
 
 
 if ($("#reception").length) {
-
-    //Toggle Full screen
-    $('html').addClass('sidebar-left-collapsed');
-    $(".sidebar-toggle").addClass("no-click");
-	
-	
 	
 	$("#patient_search").select2({
 		ajax: {
@@ -187,23 +96,23 @@ if ($("#reception").length) {
 			placeholder: "Patent Name"
 	}).on('select2:select', function() {
 
-            var select_data = $("#patient_search").select2('data');
-            var selected_id = select_data[0].id;
-			
-			
-			$("#patient_id").val(select_data[0].patient_id);
-			$("#patient_name").val(select_data[0].patient_name);
-			$("#mobile").val(select_data[0].patient_mobile);
-			if(select_data[0].patient_gender=='1'){
-				$("#male").prop('checked',true);
-			}
-			else{
-				$("#female").prop('checked',true);
-			}
-			$("#dob").val(select_data[0].patient_dob);
-			$("#address").val(select_data[0].patient_address);
-            console.log(selected_id);
-        });
+        var select_data = $("#patient_search").select2('data');
+        var selected_id = select_data[0].id;
+		
+		
+		$("#patient_id").val(select_data[0].patient_id);
+		$("#patient_name").val(select_data[0].patient_name);
+		$("#mobile").val(select_data[0].patient_mobile);
+		if(select_data[0].patient_gender=='1'){
+			$("#male").prop('checked',true);
+		}
+		else{
+			$("#female").prop('checked',true);
+		}
+		$("#dob").val(select_data[0].patient_dob);
+		$("#address").val(select_data[0].patient_address);
+        console.log(selected_id);
+    });
 		
 		
 		
@@ -486,22 +395,6 @@ if ($("#reception").length) {
 				});
 				
 			}
-	});
-   
-   
-   
-   $('#booking_table td').hover(function() {
-	   var class_name=$(this).attr('class');
-	   var booking_id=$(this).attr('booking-id');
-	   var actions='';
-	   if(class_name!='solot' && booking_id!=null && booking_id!='' ){
-			actions='<button type="button" class="mr-xs btn btn-xs btn-info pull-left" onclick="slot_action()"><i class="fa fa-pencil"></i></button>'+
-					'<button type="button" class="btn btn-xs btn-danger pull-left"><i class="fa fa-trash-o"></i></button>';
-	   }										
-		$(this).append(actions); 
-		//$(this).addClass('hover').append(actions); 
-	}, function() {
-		$(this).removeClass('hover').find("button").remove();
 	});
 	
 	
@@ -795,8 +688,166 @@ if ($("#reception").length) {
  // nsk01/21 **//
 		
 }
+//End Reception//
+
+//Start Clinic Registration//
+if ($("#clinic_registration").length) {
+	
+	$("#submit").click(function(e){
+		alert(11111);
+		e.preventDefault();
+		var form =$(this).closest("form");// serializes the form's elements.
+		
+		$.ajax({
+			type: "POST",
+			url: form.attr("action"),
+			data: form.serialize(),
+			statusCode: {
+
+				200: function(response) {
+					var json = $.parseJSON(response);
+					window.location.href = json.redirect;
+
+				},
+				400: function(response) {
+					
+
+					$("#submit").attr("disabled", true);
+					var json = $.parseJSON(response.responseText);
+
+					if (json.error_type == 'badge') {
+
+						var error_text = '';
+						$.each(json.message, function(element, value) {
+
+							$("#" + element).addClass('error_input');
+
+							$(this).closest("[type=submit]").attr("disabled", true);
+							error_text += value + '<br>';
+						});
+						new PNotify({
+							title: 'Error',
+							text: error_text,
+							type: 'error'
+						});
+
+					} else {
+						$.each(json.message, function(element, value) {
+
+							if ((form).hasClass('multi-column')) {
+
+								$("#" + element).addClass('error_input').parent().prepend("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
+
+							} else {
+								$("#" + element).addClass('error_input').parent().append("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
+
+							}
+							//$("[for="+element+"]").parent().addClass('has-error');
+							//$("#"+element).closest('.form-group').addClass('has-error');
+
+						})
+					}
+				},
+				500: function() {
+
+					$("#submit").attr("disabled", true);
+					new PNotify({
+						title: 'Error',
+						text: 'Database Problem Occurred!',
+						type: 'error'
+					});
+				}
+
+			}
+
+		});
+	});
+}
+//End Clinic Registration//
 
 //Common Functions
+
+	
+	$("form").submit(function(e) {
+		e.preventDefault();
+		
+		var form = $(this);
+		$.ajax({
+			type: "POST",
+			url: form.attr("action"),
+			data: form.serialize(),
+			statusCode: {
+
+				200: function(response) {
+					var json = $.parseJSON(response);
+					window.location.href = json.redirect;
+
+				},
+				400: function(response) {
+
+					$("#submit").attr("disabled", true);
+					var json = $.parseJSON(response.responseText);
+
+					if (json.error_type == 'badge') {
+
+						var error_text = '';
+						$.each(json.message, function(element, value) {
+
+							$("#" + element).addClass('error_input');
+
+							$(this).closest("[type=submit]").attr("disabled", true);
+							error_text += value + '<br>';
+						});
+						new PNotify({
+							title: 'Error',
+							text: error_text,
+							type: 'error'
+						});
+
+					} else {
+						$.each(json.message, function(element, value) {
+
+							if ((form).hasClass('multi-column')) {
+
+								$("#" + element).addClass('error_input').parent().prepend("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
+
+							} else {
+								$("#" + element).addClass('error_input').parent().append("<label style='float:right;' for='" + element + "' class='error'>" + value + "</label>");
+
+							}
+							//$("[for="+element+"]").parent().addClass('has-error');
+							//$("#"+element).closest('.form-group').addClass('has-error');
+
+						})
+					}
+				},
+				500: function() {
+
+					$("#submit").attr("disabled", true);
+					new PNotify({
+						title: 'Error',
+						text: 'Database Problem Occurred!',
+						type: 'error'
+					});
+				}
+
+			}
+
+		});
+	});
+	//End Form Submission
+
+
+	//Form Rest
+	$("#reset").click(function() {
+		$("#submit").attr("disabled", false);
+		$(".error_input").removeClass('error_input');
+		//$(this).closest("form").
+		$(".error").remove();
+		$(".ui-pnotify").remove();
+
+	});
+	//End Form Reset
 
 		$('form').on('keydown', 'input[type=text],input[type=password],input[type=submit],input[type=checkbox],input[type=radio],textarea,select', function(e) {
             

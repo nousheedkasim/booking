@@ -16,8 +16,8 @@
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
-									<li class="<?php echo ($cr_class=='Dashboard')?'nav-expanded nav-active':''?>">
-										<a href="Dashboard">
+									<li class="<?php echo ($cr_class=='dashboard')?'nav-expanded nav-active':''?>">
+										<a href="dashboard">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
@@ -42,29 +42,29 @@
 										</ul>
 									</li> -->
 									
-									<li class="nav-parent <?php echo ($cr_class=='Registration')?'nav-expanded nav-active':''?>">
+									<li class="nav-parent <?php echo ($cr_class=='registration')?'nav-expanded nav-active':''?>">
 										<a>
 											<i class="fa fa-list-alt" aria-hidden="true"></i>
 											<span>Registration</span>
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="Registration/clinic_list">
+												<a href="registration/clinic_list">
 													 Clinic
 												</a>
 											</li>
 											<li>
-												<a href="Registration/doctor_list">
+												<a href="registration/doctor_list">
 													 Doctor
 												</a>
 											</li>
 											<li>
-												<a href="Registration/diagnose_list">
+												<a href="registration/diagnose_list">
 													Diagnose
 												</a>
 											</li>
 											<li>
-												<a href="Registration/patient_exist">
+												<a href="registration/patient_exist">
 													Patient
 												</a>
 											</li>
