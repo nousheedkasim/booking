@@ -1394,14 +1394,14 @@ pre code {
   .row {
   /*margin-left: -48px;
   margin-right: -50px;*/
-  margin-top: 8px;
+  margin-top: 10px;
  }
 .row_1 {
   margin-left: -40px;
   margin-right: -15px;
  }
  .bt_mg{
-	margin: 0px 0px 0px 0px;
+	margin: 15px 0px 0px 0px;
  }
   .bt_pl_none{
 	padding-left:0px !important;
@@ -1434,9 +1434,12 @@ pre code {
   margin-right: -15px;
  }
  .bt_mg{
-	margin: 0px -15px 0px -15px !important;
+	margin: 0px 0px 0px 0px !important;
  }
 
+.bt_m_y{
+	margin: 0px -13px 0px -13px !important;
+ }
 }
 .container-fluid {
   margin-right: auto;
