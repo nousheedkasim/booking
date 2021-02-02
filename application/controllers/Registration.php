@@ -30,7 +30,7 @@ class Registration extends MY_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', "required");
 		$this->form_validation->set_rules('email', 'Email', "required");
 		
-		if($this->input->post('sunday')){
+		/*if($this->input->post('sunday')){
 			$this->form_validation->set_rules('sunday_from', 'From', "required");
 			$this->form_validation->set_rules('sunday_to', 'To', "required");
 		}
@@ -57,14 +57,26 @@ class Registration extends MY_Controller {
 		if($this->input->post('saturday')){
 			$this->form_validation->set_rules('saturday_from', 'From', "required");
 			$this->form_validation->set_rules('saturday_to', 'To', "required");
-		}
+		}*/
 		
 		if ($this->form_validation->run() == true) {
 			
-			$this->Registration_model->clinic_insert();
+			if($this->Registration_model->clinic_insert()==1){
+				$this->session->set_flashdata('success', 'Successfully Created Clinic');
+				$this->output->set_status_header('200');
+				echo json_encode(array('status'=>'200','message'=>'Successfully Created Clinic','api_status'=>'1','redirect'=>'registration/clinic_list/'));
+					
+			}
+			else{
+				$this->session->set_flashdata('error', 'Failed to Create Clinic');
+				$this->output->set_status_header('400');
+				echo json_encode(array('status'=>'400','message'=>'Database Problem Occurred!','api_status'=>'0'));	
+				
+			}
+					
 		}
 		else{
-			
+			$this->session->set_flashdata('error', 'Failed to Create Clinic');
 			$this->output->set_status_header('400');
 			echo json_encode(array('status'=>'400','message'=>$this->form_validation->error_array(),'api_status'=>'0'));
 								
@@ -205,13 +217,31 @@ class Registration extends MY_Controller {
 		$this->Registration_model->diagnose_delete($this->uri->segment(3));
 		redirect('Registration/employee_list/');
 	}
-	//Employee End
 	
+	public function allocation(){
+		
+		$data['clinic']	=$this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
+		$data['doctor']	= $this->Registration_model->get_doctor();
+
+		$this->page('registration/allocation',$data);
+	}
 	
-	//Chair
-	public function chair_list(){
+	public function allocation_insert()
+	{
+		$this->Registration_model->allocation_insert();
 		
 	}
+	
+	public function allocation_list(){
+
+		$data	= array();
+		$this->page('registration/allocation_list',$data);
+	}
+	
+	public function allocation_list_json(){
+		
+		$this->Registration_model->allocation_list_json();
+    }
 	
 	public function patient_exist(){
 		$data				= array();

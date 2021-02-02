@@ -63,6 +63,33 @@
 									<input type="email" name="email" id="email" class="form-control" placeholder="Mail">
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="email">Break From:</label>
+								<div class="col-md-3">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-clock-o"></i>
+											</span>
+											<input type="text" data-plugin-timepicker class="form-control" name="break_from" id="break_from" data-plugin-options='{ "minuteStep": 15 }'>
+										</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								
+								<label class="col-md-3 control-label" for="email">Break To:</label>
+								<div class="col-md-3">
+									
+									<div class="input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-clock-o"></i>
+										</span>
+										<input type="text" data-plugin-timepicker class="form-control" name="break_to" id="break_to" data-plugin-options='{ "minuteStep": 15 }'>
+									</div>
+									
+									
+								</div>
+							</div>
 							
 							
 							
@@ -71,42 +98,7 @@
 								
 								<label class="col-md-3 control-label" for="inputSuccess"> Working Days:</label>
 								<div class="col-md-6">
-									<div class="col-md-12 p-none">
-										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" id="sunday" name="sunday" value="1">
-													 Sunday
-												</label>
-											</div>
-										</div>
-										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
-											<div class="form-group">
-												<label class="col-md-3 control-label">From:</label>
-													<div class="col-md-7">
-														<div class="input-group">
-															<span class="input-group-addon">
-																<i class="fa fa-clock-o"></i>
-															</span>
-															<input type="text" data-plugin-timepicker class="form-control" name="sunday_from" id="sunday_from" data-plugin-options='{ "minuteStep": 15 }'>
-														</div>
-													</div>
-											</div>		
-										</div>
-										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
-											<div class="form-group">
-												<label class="col-md-3 control-label">To:</label>
-													<div class="col-md-7">
-														<div class="input-group">
-															<span class="input-group-addon">
-																<i class="fa fa-clock-o"></i>
-															</span>
-															<input type="text" data-plugin-timepicker class="form-control" name="sunday_to" id="sunday_to" data-plugin-options='{ "minuteStep": 15 }'>
-														</div>
-													</div>
-											</div>
-										</div>
-									</div>
+									
 									
 									<div class="col-md-12 p-none">
 										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
@@ -320,6 +312,42 @@
 																<i class="fa fa-clock-o"></i>
 															</span>
 															<input type="text" data-plugin-timepicker class="form-control" name="saturday_to" id="saturday_to" data-plugin-options='{ "minuteStep": 15 }'>
+														</div>
+													</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 p-none">
+										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" id="sunday" name="sunday" value="1">
+													 Sunday
+												</label>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
+											<div class="form-group">
+												<label class="col-md-3 control-label">From:</label>
+													<div class="col-md-7">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<i class="fa fa-clock-o"></i>
+															</span>
+															<input type="text" data-plugin-timepicker class="form-control" name="sunday_from" id="sunday_from" data-plugin-options='{ "minuteStep": 15 }'>
+														</div>
+													</div>
+											</div>		
+										</div>
+										<div class="col-md-4 col-sm-4 col-xs-4 p-none">
+											<div class="form-group">
+												<label class="col-md-3 control-label">To:</label>
+													<div class="col-md-7">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<i class="fa fa-clock-o"></i>
+															</span>
+															<input type="text" data-plugin-timepicker class="form-control" name="sunday_to" id="sunday_to" data-plugin-options='{ "minuteStep": 15 }'>
 														</div>
 													</div>
 											</div>

@@ -1,20 +1,5 @@
 <section role="main" class="content-body" id="branch_add">
-					<header class="page-header">
-						<!--<h2>Dashboard</h2>-->
 					
-						<div class="right-wrapper pull-left">
-							<ol class="breadcrumbs">
-								<li>
-									<a href="index.html">
-										<i class="fa fa-home"></i>
-									</a>
-								</li>
-								<li><span>Dashboard</span></li>
-							</ol>
-					
-							<!--<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>-->
-						</div>
-					</header>
 
 				
 					<!-- Page Start--->
@@ -25,10 +10,10 @@
 									
 									<ul class="nav nav-tabs">
 										<li >
-											<a href="Registration/doctor_list/" >Doctor List</a>
+											<a href="registration/doctor_list/" >Doctor List</a>
 										</li>
 										<li class="active">
-											<a href="Registration/doctor_add/" >Doctor Add</a>
+											<a href="registration/doctor_add/" >Doctor Add</a>
 										</li>
 									</ul>
 								</header>

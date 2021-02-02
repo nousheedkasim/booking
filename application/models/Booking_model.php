@@ -40,28 +40,34 @@
 			$booking_array		= array_column($booking_result,'blocking_time');
 			
 			
-			$doctor_string 		= "SELECT TIME_TO_SEC(doctor_clinic_from)/60 AS cn_from,TIME_TO_SEC(doctor_clinic_to)/60 as cn_to
+			$doctor_string 		= "SELECT TIME_TO_SEC(doctor_clinic_from)/60 AS cn_from,TIME_TO_SEC(doctor_clinic_to)/60 as cn_to,
+								TIME_TO_SEC(schedule_break_from)/60 AS break_from,TIME_TO_SEC(schedule_break_to)/60 AS break_to
 								FROM tbl_doctor_clinic 
-								WHERE   doctor_clinic_doctor=$doctor_id  AND doctor_clinic_clinic=$clinic_id AND doctor_clinic_status=1 AND WEEKDAY(DATE_FORMAT('$booking_date', '%Y-%m-%d'))=doctor_clinic_day";
+								INNER JOIN tbl_clinic_schedule ON doctor_clinic_clinic=schedule_clinic
+								WHERE   doctor_clinic_doctor=$doctor_id  AND doctor_clinic_clinic=$clinic_id AND doctor_clinic_status=1 AND WEEKDAY(DATE_FORMAT('$booking_date', '%Y-%m-%d'))=doctor_clinic_day AND WEEKDAY(DATE_FORMAT('2021/02/02', '%Y-%m-%d'))=schedule_day";
 								
 					
 								
             $doctor_query  		= $this->db->query($doctor_string);
             $doctor_row 		= $doctor_query->row();
-			//WEEKDAY(DATE_FORMAT(STR_TO_DATE('$booking_date','%d/%m/%Y'), '%Y-%m-%d'))=doctor_clinic_day AND
+			
 			if($doctor_query->num_rows()>0){
 			
 			
-				$from	= $doctor_row->cn_from;
-				$to		= $doctor_row->cn_to;
+				$from		= $doctor_row->cn_from;
+				$to			= $doctor_row->cn_to;
+				$break_from	= $doctor_row->break_from;
+				$break_to	= $doctor_row->break_to;
 				
 				for($i=$from; $i<$to;$i=$i+$min_duration)
 				{
-					$act_time=sprintf("%02d",intdiv($i, 60)).':'. sprintf("%02d", ($i % 60));
-					
-					if(!in_array($act_time,$booking_array)){
+					if(($i>=$from && $i < $break_from) || ($i>=$break_to && $i < $to ) ){
+						$act_time=sprintf("%02d",intdiv($i, 60)).':'. sprintf("%02d", ($i % 60));
 						
-						$slots_array[]=$i;
+						if(!in_array($act_time,$booking_array)){
+							
+							$slots_array[]=$i;
+						}
 					}
 				}
 				

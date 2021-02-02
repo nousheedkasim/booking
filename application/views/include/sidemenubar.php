@@ -68,6 +68,11 @@
 													Patient
 												</a>
 											</li>
+											<li>
+												<a href="registration/allocation_list">
+													Doctor Allocation
+												</a>
+											</li>
 										</ul>
 									</li>
 									

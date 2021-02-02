@@ -694,7 +694,7 @@ if ($("#reception").length) {
 if ($("#clinic_registration").length) {
 	
 	$("#submit").click(function(e){
-		alert(11111);
+		
 		e.preventDefault();
 		var form =$(this).closest("form");// serializes the form's elements.
 		

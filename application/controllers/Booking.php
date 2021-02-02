@@ -12,7 +12,7 @@ class Booking extends MY_Controller {
 	public function booking(){
 		
 		$data						= array();
-		$data['clinics']			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_working_status'=>1));
+		$data['clinics']			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
 		$this->page('reception',$data);
 
 	}

@@ -11,27 +11,105 @@
 				//Registration->clinic_insert || api/Registration->clinic_insert
 				public function clinic_insert(){
 					
-					//Setting values for tabel columns
-					$clinic_deatails	= array('clinic_name'	    		=> $this->input->post('name'),
-												'clinic_location'			=> $this->input->post('location'),
-												'clinic_phone'				=> $this->input->post('phone'),
-												'clinic_email'				=> $this->input->post('email'),
-												'clinic_working_from'		=> $this->input->post('working_from'),
-												'clinic_working_to'			=> $this->input->post('working_to'),
-												);
 					
-					// Inserting in Table(tbl_user) 
-					$this->db->insert('tbl_clinic', $clinic_deatails);
+					$day[]= ($this->input->post('monday'))?1:0;
+					$day[]= ($this->input->post('tuesday'))?1:0;
+					$day[]= ($this->input->post('wednesday'))?1:0;
+					$day[]= ($this->input->post('thursday'))?1:0;
+					$day[]= ($this->input->post('friday'))?1:0;
+					$day[]= ($this->input->post('saturday'))?1:0;
+					$day[]= ($this->input->post('sunday'))?1:0;
+					
+					
+					$from[]= $this->input->post('monday_from');
+					$from[]= $this->input->post('tuesday_from');
+					$from[]= $this->input->post('wednesday_from');
+					$from[]= $this->input->post('thursday_from');
+					$from[]= $this->input->post('friday_from');
+					$from[]= $this->input->post('saturday_from');
+					$from[]= $this->input->post('sunday_from');
+					
+					
+					$to[]= $this->input->post('monday_to');
+					$to[]= $this->input->post('tuesday_to');
+					$to[]= $this->input->post('wednesday_to');
+					$to[]= $this->input->post('thursday_to');
+					$to[]= $this->input->post('friday_to');
+					$to[]= $this->input->post('saturday_to');
+					$to[]= $this->input->post('sunday_to');
+					
+					
+					
+					
+					//Setting values for tabel columns
+					
+					$user_deatails	= array(
+						'user_name'			=> ucfirst($this->input->post('clinic_name')),
+						'user_login_id' 	=> $this->input->post('login_id'),
+						'user_location' 	=> $this->input->post('location'),
+						'user_type'			=> 2,
+						'user_password'		=> md5($this->input->post('password')),
+						'user_email'		=> $this->input->post('email'),
+						'user_mobile'		=> $this->input->post('phone'),
+						'user_inserted_by'	=> $this->user_data['user_id'],
+						'user_inserted_date'=> date("Y-m-d h:i:s"),
+						'user_modified_by'	=> $this->user_data['user_id'],
+						'user_modified_date'=> date("Y-m-d h:i:s")
+					);
+					$this->db->trans_start();
+					// Inserting in Table(tbl_group) 
+					$this->db->insert(' tbl_user', $user_deatails);
 					if($this->db->affected_rows()){
 						
-						$this->session->set_flashdata('success', 'Successfully Created Clinic');
-						$this->output->set_status_header('200');
-						echo json_encode(array('status'=>'200','message'=>'Successfully Created Clinic','api_status'=>'1'));
+						$user_id=$this->db->insert_id();
+					
+						$clinic_deatails	= array(
+							'clinic_user'	    		=> $user_id,
+							'clinic_name'	    		=> ucfirst($this->input->post('clinic_name')),
+							'clinic_location'			=> $this->input->post('location'),
+							'clinic_phone'				=> $this->input->post('phone'),
+							'clinic_email'				=> $this->input->post('email'),
+							'clinic_inserted_by'        => $this->user_data['user_id'],
+							'clinic_inserted_date'		=> date("Y-m-d h:i:s"),
+							'clinic_modified_by'        => $this->user_data['user_id'],
+							'clinic_modified_date'      => date("Y-m-d h:i:s")
+						);
+					
+					// Inserting in Table(tbl_user) 
+						$this->db->insert('tbl_clinic', $clinic_deatails);
+					
+						if($this->db->affected_rows()){
+							$clinic_id=$this->db->insert_id();
+							foreach($day as $key=>$row){
+						
+								$array['schedule_clinic']=$clinic_id;
+								$array['schedule_day']=$key;
+								$array['schedule_from']=$from[$key];
+								$array['schedule_to']=$to[$key];
+								$array['schedule_break_from']=$this->input->post('break_from');
+								$array['schedule_break_to']=$this->input->post('break_to');
+								$array['schedule_status']=$day[$key];
+								
+								$schedule[]=$array;
+								
+							}
+							
+							$this->db->insert_batch('tbl_clinic_schedule', $schedule); 
+						
+						}
+					}
+					$this->db->trans_complete();
+					
+					if($this->db->trans_status() == true){
+						
+						$this->db->trans_commit();
+						return 1;
+							
 					}
 					else{
-						$this->output->set_status_header('500');
-						echo json_encode(array('status'=>'200','message'=>'Database Problem Occurred!','api_status'=>'0'));	
-					}	
+						$this->db->trans_rollback();
+						return 0;
+					}
 									
 				}
 				
@@ -989,6 +1067,270 @@
 				return		  $result;
 			}
 		}
+		
+		
+		
+		public function allocation_insert(){
+			
+			$this->form_validation->set_rules('clinic', 'Clinic', "required");
+			//$this->form_validation->set_rules('doctor', 'Doctor', "required");
+
+			
+	
+						//Chech Validation
+					if ($this->form_validation->run() == true) {
+						
+						$min_duration		= SLOT_MINIMUM_DURATION;
+						
+						$day[]= ($this->input->post('monday'))?1:0;
+						$day[]= ($this->input->post('tuesday'))?1:0;
+						$day[]= ($this->input->post('wednesday'))?1:0;
+						$day[]= ($this->input->post('thursday'))?1:0;
+						$day[]= ($this->input->post('friday'))?1:0;
+						$day[]= ($this->input->post('saturday'))?1:0;
+						$day[]= ($this->input->post('sunday'))?1:0;
+						
+						
+						$from[]= $this->input->post('monday_from');
+						$from[]= $this->input->post('tuesday_from');
+						$from[]= $this->input->post('wednesday_from');
+						$from[]= $this->input->post('thursday_from');
+						$from[]= $this->input->post('friday_from');
+						$from[]= $this->input->post('saturday_from');
+						$from[]= $this->input->post('sunday_from');
+						
+						
+						$to[]= $this->input->post('monday_to');
+						$to[]= $this->input->post('tuesday_to');
+						$to[]= $this->input->post('wednesday_to');
+						$to[]= $this->input->post('thursday_to');
+						$to[]= $this->input->post('friday_to');
+						$to[]= $this->input->post('saturday_to');
+						$to[]= $this->input->post('sunday_to');
+						
+						
+						$block_from_tf	= date("H:i", strtotime($this->input->post('block_from')));
+						$block_to_tf	= date("H:i", strtotime($this->input->post('block_to')));
+						
+						$block_from_array=explode(':',$block_from_tf);
+						$block_to_array=explode(':',$block_to_tf);
+						
+						$block_from=($block_from_array[0]*60)+$block_from_array[1];
+						$block_to=($block_to_array[0]*60)+$block_to_array[1];
+						
+						
+							
+							
+							foreach($day as $key=>$row){
+						
+								$array['doctor_clinic_clinic']=$this->input->post('clinic');
+								$array['doctor_clinic_doctor']=$this->input->post('doctor');
+								$array['doctor_clinic_day']=$key;
+								$array['doctor_clinic_from']=$from[$key];
+								$array['doctor_clinic_to']=$to[$key];
+								$array['doctor_clinic_status']=$day[$key];
+								
+								$allocation[]=$array;
+								
+							}
+							$this->db->trans_start();
+							$this->db->insert_batch('tbl_doctor_clinic', $allocation); 
+							if($this->db->affected_rows()){
+								
+								for($i=$block_from; $i<$block_to;$i=$i+$min_duration)
+								{
+									
+									$time=sprintf("%02d",intdiv($i, 60)).':'. sprintf("%02d", ($i % 60));
+									
+									$b_array['blocking_slot_time']=$time;
+									$b_array['blocking_slot_status']=7;
+									$b_array['blocking_slot_clinic']= $this->input->post('clinic');
+									$b_array['blocking_slot_doctor']= $this->input->post('doctor');
+									$b_array['blocking_slot_type']= 1;
+									
+									$block[]=$b_array;
+								}
+								$this->db->insert_batch('tbl_blocking_slot', $block); 
+								
+								
+							}
+							$this->db->trans_complete();
+					
+							if($this->db->trans_status() == true){
+								
+								$this->db->trans_commit();
+								
+								$this->session->set_flashdata('success', 'Successfully Created Doctor Allocation');
+								$this->output->set_status_header('200');
+								echo json_encode(array('status'=>'200','message'=>'Successfully Created Clinic','api_status'=>'1','redirect'=>'registration/allocation_list/'));
+						
+									
+							}
+							else{
+								$this->db->trans_rollback();
+								$this->session->set_flashdata('error', 'Failed To Doctor Allocation');
+								$this->output->set_status_header('400');
+								echo json_encode(array('status'=>'400','message'=>'Failed To Doctor Allocation','api_status'=>'1'));
+						
+							}
+							
+							
+						}
+
+					
+					
+					else{
+						
+						$this->output->set_status_header('400');
+						echo json_encode(array('status'=>'400','message'=>$this->form_validation->error_array(),'api_status'=>'0'));
+						
+					}
+							
+		}
+		
+		
+		//Registration->allocation_list_json
+			public function allocation_list_json(){
+			
+				//Array of database columns which should be read and sent back to DataTables//
+				$aColumns = array( 'sl', 'clinic_name', 'doctor_name','status','action');
+				
+				//Array of database search columns//
+				$sColumns = array('clinic_name','doctor_name');
+			
+				//Indexed column (used for fast and accurate table attributes) //
+				$sIndexColumn = "doctor_clinic_id";
+				
+				//DB tables to use//
+				$sTable = "tbl_doctor_clinic
+				INNER JOIN tbl_clinic ON doctor_clinic_clinic=clinic_id
+				INNER JOIN tbl_doctor ON doctor_clinic_doctor=doctor_id";
+				//Paging//
+				$sLimit = "";
+				if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
+				{
+					$sLimit = "LIMIT ".( $_GET['iDisplayStart'] ).", ".
+						( $_GET['iDisplayLength'] );
+				}
+		
+				//Ordering//
+				if ( isset( $_GET['iSortCol_0'] ) )
+				{
+					$sOrder = "ORDER BY  ";
+					for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+					{
+						if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
+						{
+							$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] ) ]."
+								".( $_GET['sSortDir_'.$i] ) .", ";
+						}
+					}
+					
+					$sOrder = substr_replace( $sOrder, "", -2 );
+					if ( $sOrder == "ORDER BY" )
+					{
+						$sOrder = "";
+					}
+				}
+		
+				//Filtering//
+				$sWhere = "";
+				if ( $_GET['sSearch'] != "" )
+				{
+					$sWhere = "WHERE (";
+					for ( $i=0 ; $i<count($sColumns) ; $i++ )
+					{
+						
+							$sWhere .= $sColumns[$i]." LIKE '%".( $_GET['sSearch'] )."%' OR ";
+						
+					}
+					$sWhere = substr_replace( $sWhere, "", -3 );
+					$sWhere .= ')';
+				}
+		
+				//Individual column filtering//
+				for ( $i=0 ; $i<count($sColumns) ; $i++ )
+				{
+					if ( $_GET['bSearchable_'.$i] == "true" && $_GET['sSearch_'.$i] != '' )
+					{
+						if ( $sWhere == "" )
+						{
+							$sWhere = "WHERE ";
+						}
+						else
+						{
+							$sWhere .= " AND ";
+						}
+						$sWhere .= $sColumns[$i]." LIKE '%".($_GET['sSearch_'.$i])."%' ";
+					}
+				}
+		
+				//SQL queries//
+				$sQuery			= "SELECT SQL_CALC_FOUND_ROWS doctor_clinic_id as sl,clinic_name as clinic_name,doctor_name as doctor_name,
+								doctor_clinic_status as status,doctor_clinic_id as id
+								FROM   $sTable
+								$sWhere
+								$sOrder
+								$sLimit";
+				$rResult 		= $this->db->query($sQuery);
+		
+				//Data set length after filtering//
+				//$fQuery			= "SELECT FOUND_ROWS()";
+				//$fResult		= $this->db->query($fQuery);
+				$FilteredTotal	= $rResult->num_rows();
+		
+				//Total data set length //
+				$tQuery			= "SELECT $sIndexColumn FROM   $sTable";
+				$tResult		= $this->db->query($tQuery);
+				$Total			= $tResult->num_rows();
+		
+				//Output
+				$output = array(
+					"sEcho" 				=> intval($_GET['sEcho']),
+					"iTotalRecords" 		=> $Total,
+					"iTotalDisplayRecords" 	=> $FilteredTotal,
+					"aaData" 				=> array()
+				);
+				$result	= $rResult->result_array();
+				$j=1;
+				foreach($result as $aRow){
+					$row = array();
+					for ( $i=0 ; $i<count($aColumns) ; $i++ )
+					{
+						
+						if ( $aColumns[$i] == "sl" )
+						{
+							$row[] = $j;
+						}
+						else if( $aColumns[$i] == "status" ){
+							
+							//$row[] = "<button type='button' style='margin-top:-5px; margin-bottom:-5px;' class='btn btn-xs btn-primary'>Extra Small Button</button>";
+							$row[] = $this->Common_model->status_template($aRow[ $aColumns[$i] ]);
+							
+						}
+						else if( $aColumns[$i] == "action" ){
+							
+							$id   = $aRow['id'];
+							$edit = "<a title='Edit' href='Registration/allocation_edit/$id/' class='on-default edit-row edit-icon'><i class='fa fa-pencil'></i></a>";
+							$edit.= "<a title='Delete' href='Registration/allocation_delete/$id/' class='on-default remove-row edit-icon' data-toggle='confirmation'><i class='fa fa-trash-o'></i></a>";
+							$row[]= $edit;
+							
+						}
+						else if ( $aColumns[$i] != ' ' )
+						{
+							// General output 
+							$row[] = $aRow[ $aColumns[$i] ];
+						}
+						
+					}
+					$output['aaData'][] = $row;
+					$j++;
+				}
+				
+				echo json_encode( $output );
+				
+			}
+		
 		
 		public function chair_insert(){
 			
