@@ -221,7 +221,7 @@ class Registration extends MY_Controller {
 	public function allocation(){
 		
 		$data['clinic']	=$this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
-		$data['doctor']	= $this->Registration_model->get_doctor();
+		$data['doctor']	= $this->Common_model->get_dropdown_value('tbl_doctor',array('doctor_id'=>'id','doctor_name'=>'value'),array('doctor_status'=>1)); 
 
 		$this->page('registration/allocation',$data);
 	}

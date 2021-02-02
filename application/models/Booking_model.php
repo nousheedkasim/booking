@@ -32,9 +32,13 @@
 								WHERE booking_date='$booking_date' AND booking_clinic=$clinic_id AND booking_doctor=$doctor_id
 									UNION 
 								SELECT SUBSTRING(blocking_slot_time,1,5) as blocking_time 
-								FROM tbl_blocking_slot  
-							
-								WHERE blocking_slot_date='$booking_date' AND blocking_slot_clinic=$clinic_id AND blocking_slot_doctor=$doctor_id";
+								FROM tbl_blocking_slot 
+								WHERE blocking_slot_date='$booking_date' AND blocking_slot_clinic=$clinic_id AND blocking_slot_doctor=$doctor_id AND blocking_slot_type=0
+									UNION
+								SELECT SUBSTRING(blocking_slot_time,1,5) as blocking_time 
+								FROM tbl_blocking_slot 
+								WHERE  AND blocking_slot_clinic=$clinic_id AND blocking_slot_doctor=$doctor_id AND blocking_slot_type=1
+								";
             $booking_query  	= $this->db->query($booking_string);
             $booking_result		= $booking_query->result();
 			$booking_array		= array_column($booking_result,'blocking_time');

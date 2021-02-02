@@ -82,13 +82,13 @@
 							$clinic_id=$this->db->insert_id();
 							foreach($day as $key=>$row){
 						
-								$array['schedule_clinic']=$clinic_id;
-								$array['schedule_day']=$key;
-								$array['schedule_from']=$from[$key];
-								$array['schedule_to']=$to[$key];
-								$array['schedule_break_from']=$this->input->post('break_from');
-								$array['schedule_break_to']=$this->input->post('break_to');
-								$array['schedule_status']=$day[$key];
+								$array['schedule_clinic']		= $clinic_id;
+								$array['schedule_day']			= $key;
+								$array['schedule_from']			= date("H:i", strtotime($from[$key]));
+								$array['schedule_to']			= date("H:i", strtotime($to[$key]));
+								$array['schedule_break_from']	= date("H:i", strtotime($this->input->post('break_from')));
+								$array['schedule_break_to']		= date("H:i", strtotime($this->input->post('break_to')));
+								$array['schedule_status']		= $day[$key];
 								
 								$schedule[]=$array;
 								
@@ -437,7 +437,7 @@
 				
 				//Setting values for tabel columns
 				$doctor_deatails	= array(
-										'doctor_name'   	=> $this->input->post('name'),
+										'doctor_name'   	=> 'Dr. '.ucfirst($this->input->post('name')),
 										'doctor_desig'   	=> $this->input->post('designation'),
 										'doctor_user'  => $user_id,
 									   );
@@ -1122,15 +1122,17 @@
 							
 							
 							foreach($day as $key=>$row){
-						
-								$array['doctor_clinic_clinic']=$this->input->post('clinic');
-								$array['doctor_clinic_doctor']=$this->input->post('doctor');
-								$array['doctor_clinic_day']=$key;
-								$array['doctor_clinic_from']=$from[$key];
-								$array['doctor_clinic_to']=$to[$key];
-								$array['doctor_clinic_status']=$day[$key];
 								
-								$allocation[]=$array;
+								if($day[$key]==1){
+									$array['doctor_clinic_clinic']=$this->input->post('clinic');
+									$array['doctor_clinic_doctor']=$this->input->post('doctor');
+									$array['doctor_clinic_day']=$key;
+									$array['doctor_clinic_from']=$from[$key];
+									$array['doctor_clinic_to']=$to[$key];
+									$array['doctor_clinic_status']=$day[$key];
+									
+									$allocation[]=$array;
+								}
 								
 							}
 							$this->db->trans_start();
