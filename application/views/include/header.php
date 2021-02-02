@@ -78,7 +78,7 @@
 							<i class="fa custom-caret"></i>
 						</a>
 			
-						<div class="dropdown-menu">
+						<div class="dropdown-menu" style="min-width: 85px !important; ">
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>

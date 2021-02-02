@@ -146,7 +146,7 @@
 				
 				
 				
-				<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
+				<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 bt_mg">
 				
 				
 						<section class="panel mb-xs panel-featured-left panel-featured-info mb-xs">
@@ -162,7 +162,7 @@
 										</div>
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div id="appoinment_count" class="summary-icon-md bg-info rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
-												
+												0
 											</div>
 										</div>
 									</div>
@@ -183,7 +183,7 @@
 										</div>
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div id="confirm_count" class="summary-icon-md bg-success rounded mb-0" style="padding: 0px 5px 2px 5px; font-size:25px;">
-												
+												0
 											</div>
 										</div>
 									</div>
@@ -282,7 +282,7 @@
 					
 				<div class="col-sm-9 col-md-9 col-lg-10 col-xl-10 bt_mg bt_pl_none">
 				
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none col-lg-offset-<?php echo $offset; ?> col-xl-offset-<?php echo $offset; ?>">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-none bt_m_y col-lg-offset-<?php echo $offset; ?> col-xl-offset-<?php echo $offset; ?>">
 						
 						
 						<div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 mb-xs">
@@ -328,7 +328,7 @@
 						</div>
 				
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-xs bt_pl_none bt_pr_none" style="font-size:15px;" id="booking_list_div">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 bt_m_y mt-xs bt_pl_none bt_pr_none" style="font-size:15px;" id="booking_list_div">
 						<!--  data append from jquery--->
 					</div>
 						

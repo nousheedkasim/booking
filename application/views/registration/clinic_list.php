@@ -1,7 +1,7 @@
 
 	<section role="main" class="content-body" id="clinic_list">
 		<div class="row">	
-			<div class="col-md-6 col-lg-12 col-xl-6">
+			<div class="col-md-12 col-lg-12 col-xl-12">
 				<section class="panel">
 					<header class="panel-heading">
 						<ul class="nav nav-tabs">
