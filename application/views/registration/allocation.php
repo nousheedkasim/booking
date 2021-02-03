@@ -51,19 +51,35 @@
 												</div>
 											</div>
 											
-											<div class="form-group">
-												<label class="col-md-3 control-label" for="block_from">Block From:</label>
-												<div class="col-md-3">
+											<div class="form-group" id="block">
+												
+													<label class="col-md-3 control-label" for="block_from">Block From:</label>
+													<div class="col-md-2">
+															<div class="input-group">
+																<span class="input-group-addon">
+																	<i class="fa fa-clock-o"></i>
+																</span>
+																<input type="text" data-plugin-timepicker class="form-control" name="block_from" id="block_from" data-plugin-options='{ "minuteStep": 15 }'>
+															</div>
+													</div>
+													
+													<label class="col-md-2 control-label" for="block_to">To:</label>
+													<div class="col-md-2">
+														
 														<div class="input-group">
 															<span class="input-group-addon">
 																<i class="fa fa-clock-o"></i>
 															</span>
-															<input type="text" data-plugin-timepicker class="form-control" name="block_from" id="block_from" data-plugin-options='{ "minuteStep": 15 }'>
+															<input type="text" data-plugin-timepicker class="form-control" name="block_to" id="block_to" data-plugin-options='{ "minuteStep": 15 }'>
 														</div>
-												</div>
+														
+														
+													</div>
+													<div class="col-md-1"> <button type="button" class="btn btn-primary btn-sm" id="block_plus_btn"><i class="fa fa-plus"></i></button> </div>
+												
 											</div>
 											
-											<div class="form-group">
+											<!--<div class="form-group">
 												
 												<label class="col-md-3 control-label" for="block_to">Block To:</label>
 												<div class="col-md-3">
@@ -77,7 +93,7 @@
 													
 													
 												</div>
-											</div>
+											</div>-->
 											
 											<div class="form-group">
 								

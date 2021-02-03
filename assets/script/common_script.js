@@ -74,9 +74,32 @@ if ($("#flash_data").length) {
 }
 
 //End Flash data
-
-
-
+if ($("#allocation").length) {
+	
+	$("#block_plus_btn").click(function(){
+		var html='<div class="form-group"><label class="col-md-3 control-label" for="block_from">Block From:</label>'+
+			'<div class="col-md-2">'+
+					'<div class="input-group">'+
+						'<span class="input-group-addon">'+
+							'<i class="fa fa-clock-o"></i>'+
+						'</span>'+
+						"<input type=text data-plugin-timepicker class=form-control name=block_from id=block_from data-plugin-options={ minuteStep:"+ 15 +"}>"+
+					'</div>'+
+			'</div>'+
+			'<label class="col-md-2 control-label" for="block_to">To:</label>'+
+			'<div class="col-md-2">'+
+				'<div class="input-group">'+
+					'<span class="input-group-addon">'+
+						'<i class="fa fa-clock-o"></i>'+
+					'</span>'+
+					'<input type="text" data-plugin-timepicker class="form-control" name="block_to" id="block_to" data-plugin-options={ minuteStep": 15 }">'+
+				'</div>'+
+			'</div>'+
+		'<div class="col-md-1"> <button type="button" class="btn btn-primary btn-sm" id="block_minus_btn"><i class="fa fa-minus"></i></button> </div></div>';
+		$("#block").after(html);									
+	});
+		
+};
 
 if ($("#reception").length) {
 	
@@ -267,8 +290,9 @@ if ($("#reception").length) {
  
 		function  slot(element_dom,diagnose,clinic,doctor,booking_date){
 	 
-		
+		  $('#booking_time_edit').val('');
 		 if(element_dom=='picker'){
+			  
           $("#picker").markyourcalendar({
             availability:arry_response(diagnose,clinic,doctor,booking_date),
 			
@@ -278,6 +302,7 @@ if ($("#reception").length) {
               // data is a list of datetimes
              
               var html = '';
+			 
               $.each(data, function() {
                 var d = this.split(' ')[0];
                 var t = this.split(' ')[1];
@@ -367,8 +392,10 @@ if ($("#reception").length) {
 				}				
 				
 			});
-		 console.log(slot);
-		 return slot;
+		
+			return slot;
+		
+		
 	 }
 	
 	 
