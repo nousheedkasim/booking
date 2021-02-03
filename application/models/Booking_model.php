@@ -47,15 +47,15 @@
 								TIME_TO_SEC(schedule_break_from)/60 AS break_from,TIME_TO_SEC(schedule_break_to)/60 AS break_to
 								FROM tbl_doctor_clinic 
 								INNER JOIN tbl_clinic_schedule ON doctor_clinic_clinic=schedule_clinic
-								WHERE   doctor_clinic_doctor=$doctor_id  AND doctor_clinic_clinic=$clinic_id AND doctor_clinic_status=1 AND WEEKDAY(DATE_FORMAT('$booking_date', '%Y-%m-%d'))=doctor_clinic_day AND WEEKDAY(DATE_FORMAT('2021/02/02', '%Y-%m-%d'))=schedule_day";
+								WHERE   doctor_clinic_doctor=$doctor_id  AND doctor_clinic_clinic=$clinic_id AND doctor_clinic_status=1 AND WEEKDAY(DATE_FORMAT('$booking_date', '%Y-%m-%d'))=doctor_clinic_day AND WEEKDAY(DATE_FORMAT('$booking_date', '%Y-%m-%d'))=schedule_day";
 								
 					
 								
             $doctor_query  		= $this->db->query($doctor_string);
             $doctor_row 		= $doctor_query->row();
 			
-			if($doctor_query->num_rows()>0){
 			
+			if($doctor_query->num_rows()>0){
 			
 				$from		= $doctor_row->cn_from;
 				$to			= $doctor_row->cn_to;
@@ -530,6 +530,7 @@
         		$actual_time	=  $this->input->post('actual_time');
         	    $diagnosis	=  $this->input->post('diagnosis_id');
         	   	$duration		=  $this->input->post('diagnosis_duration');
+				$status			= $this->input->post('booking_status_edit');
 				
 				if($this->input->post('diagnosis_duration')==null){
 					$diagnosis_string 	= "SELECT diagnose_slot_duration FROM tbl_diagnose WHERE diagnose_id=$diagnosis";
@@ -542,7 +543,7 @@
 				
         		$this->db->trans_start();
         		
-        		$booking_string="UPDATE  tbl_booking SET booking_diagnosis=$diagnosis, booking_clinic=$clinic_id, booking_doctor=$doctor_id,booking_date='$booking_date',booking_time='$actual_time' 
+        		$booking_string="UPDATE  tbl_booking SET booking_diagnosis=$diagnosis, booking_clinic=$clinic_id, booking_doctor=$doctor_id,booking_date='$booking_date',booking_time='$actual_time',booking_status=$status 
         		                WHERE booking_id=$booking_id";
 			
 			

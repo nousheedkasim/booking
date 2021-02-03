@@ -12,7 +12,7 @@ class Booking extends CI_Controller {
 	public function clinic_list()
 	{
 		$this->load->model('Common_model');
-		$data			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_working_status'=>1));
+		$data			= $this->Common_model->get_dropdown_value('tbl_clinic',array('clinic_id'=>'id','clinic_name'=>'value'),array('clinic_status'=>1));
 		if(count($data)>0){
 		    $json[]=array('api_status'=>'1','clinic_data'=>$data);
 		}
@@ -66,12 +66,13 @@ class Booking extends CI_Controller {
 		$this->load->model('Booking_model');
 	    $data=$this->Booking_model->booking_slot();
 		
-		//if(count($data)>0){
-		    $json[]=array('api_status'=>'1','slot_data'=>$data);
-		//}
-		//else{
-		   // $json[]=array('api_status'=>'0');
-		//}
+		if($data['status']==1){
+		    $json[]=array('api_status'=>'1','slot_data'=>$data['slots']);
+		}
+		else{
+		   $json[]=array('api_status'=>'0');
+		}
+		echo json_encode($json);
 		echo json_encode($json);
 	}
 	

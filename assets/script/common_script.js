@@ -659,7 +659,7 @@ if ($("#reception").length) {
 	}
  
 	 $("#booking_update").click(function(){
-				if(!$(".myc-available-time").hasClass("selected")){
+				if(($("#myc-container").length) &&  (!$(".myc-available-time").hasClass("selected"))){
 					alert("Invalid slot");
 				}
 				else{
@@ -671,11 +671,11 @@ if ($("#reception").length) {
 						data: form_data+'&&booking_date='+date,
 						success: function(response){
 							
-							//var json =JSON.parse(response);
+							var json =JSON.parse(response);
 							
-							//if(json.status==1){
+							if(json.status==1){
 								location.reload();
-							//}
+							}
 							
 						}				
 						

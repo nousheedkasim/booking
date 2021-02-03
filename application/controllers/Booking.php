@@ -119,7 +119,14 @@ class Booking extends MY_Controller {
 	
 	public function patientBookingUpdate(){
 		$this->load->model('Booking_model');
-		$this->Booking_model->patient_booking_update();
+		$data=$this->Booking_model->patient_booking_update();
+		if($data['status']==1){
+			$json=array('status'=>'1');
+		}
+		else{
+			$json=array('status'=>'0');
+		}
+		echo json_encode($json);
 	}
 	// nsk-22/01/22 **//
 	

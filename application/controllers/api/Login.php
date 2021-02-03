@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 		    $response=$this->Login_model->checkUser($platform);
 		    if($response){
 			
-			    if($this->input->post('log_type')==1){ //login
+			    if($this->input->post('log_type')==1){ //otp
 					
 					$json[]	=array(	'user_id'=>intval($response['user_id']),
 									'user_type'=>$response['user_type'],
@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 			
 			
 			    }
-			    else if ($this->input->post('log_type')==2){
+			    else if ($this->input->post('log_type')==2){ //login
 				
 				    $log_status=1;
 			
@@ -65,7 +65,7 @@ class Login extends CI_Controller {
 				
 				
 			    }
-			    else if ($this->input->post('log_type')==0){
+			    else if ($this->input->post('log_type')==0){ //logout
 				    $log_status	= 0;
 			
 					
