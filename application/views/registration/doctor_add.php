@@ -1,7 +1,4 @@
 <section role="main" class="content-body" id="branch_add">
-					
-
-				
 					<!-- Page Start--->
 					<div class="row">
 						<div class="col-md-6 col-lg-12 col-xl-6">
@@ -29,6 +26,12 @@
 												<label class="col-md-3 control-label" for="designation">Designation:</label>
 												<div class="col-md-6">
 													<input type="text" name="designation" id="designation" class="form-control" placeholder="Enter Designation " autocomplete="off">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label" for="mobile">Mobile (Login Id):</label>
+												<div class="col-md-6">
+													<input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile Number" autocomplete="off">
 												</div>
 											</div>
 											<div class="form-group">

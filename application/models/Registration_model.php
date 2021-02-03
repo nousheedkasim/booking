@@ -416,6 +416,7 @@
 			
 			$this->form_validation->set_rules('name', 'Name', "required");
 			$this->form_validation->set_rules('designation', 'Code', "required");
+			$this->form_validation->set_rules('mobile', 'Mobile', "numeric|exact_length[10]|is_unique[tbl_user.user_login_id]");
 			$this->form_validation->set_rules('password', 'Password', "required");
 			$this->form_validation->set_rules('confirm_password', 'Confirm Password', "required|matches[password]");
 			
@@ -424,10 +425,16 @@
 
 
 				$user_deatails	= array(
-					'user_name'		=> $this->input->post('name'),
-					'user_type'		=> 2,
-					'user_password'	=> md5($this->input->post('confirm_password')),
-					);
+					'user_name'			=> 'Dr. '.ucfirst($this->input->post('name')),
+					'user_type'			=> 3,
+					'user_login_id'		=> $this->input->post('mobile'),
+					'user_mobile'		=> $this->input->post('mobile'),
+					'user_password'		=> md5($this->input->post('confirm_password')),
+					'user_inserted_by'	=> $this->user_data['user_id'],
+					'user_inserted_date'=> date("Y-m-d h:i:s"),
+					'user_modified_by'	=> $this->user_data['user_id'],
+					'user_modified_date'=> date("Y-m-d h:i:s")
+				);
 					$this->db->trans_start();
 					// Inserting in Table(tbl_group) 
 					$this->db->insert(' tbl_user', $user_deatails);
@@ -437,10 +444,14 @@
 				
 				//Setting values for tabel columns
 				$doctor_deatails	= array(
-										'doctor_name'   	=> 'Dr. '.ucfirst($this->input->post('name')),
-										'doctor_desig'   	=> $this->input->post('designation'),
-										'doctor_user'  => $user_id,
-									   );
+					'doctor_name'   			=> 'Dr. '.ucfirst($this->input->post('name')),
+					'doctor_desig'   			=> $this->input->post('designation'),
+					'doctor_user'  				=> $user_id,
+					'doctor_created_by'			=> $this->user_data['user_id'],
+					'doctor_created_datetime'	=> date("Y-m-d h:i:s"),
+					'doctor_modified_by'		=> $this->user_data['user_id'],
+					'doctor_modified_datetime'	=> date("Y-m-d h:i:s")
+				);
 				$this->db->trans_start();
 				// Inserting in Table(tbl_group) 
 				$this->db->insert('tbl_doctor', $doctor_deatails);
